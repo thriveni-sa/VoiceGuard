@@ -1,0 +1,79 @@
+<USER_REQUEST>
+gsd-# TASK: Fix All UI/UX Issues, Functional Bugs, and Responsive Design Problems
+
+Act as a senior full-stack developer, UI/UX engineer, and QA tester.
+
+I have an existing application that needs debugging, UI improvements, responsive design corrections, and functional fixes. Inspect the entire existing codebase before making changes.
+
+**Important:** Do not rebuild the application from scratch. Work with the existing architecture, framework, components, styling, APIs, and database wherever possible.
+
+Your goal is to fix every issue listed below, preserve existing functionality, and ensure the application works correctly on both desktop and mobile devices.
+
+## 1. Fix the Overall Layout and Desktop Display
+
+The application currently looks too much like a mobile interface when viewed on a laptop.
+
+Requirements:
+- Redesign the layout to look professional and natural on desktop and laptop screens.
+- Use the available screen width effectively.
+- Ensure navigation, cards, forms, dashboards, and content sections are appropriately sized for desktop.
+- Maintain a responsive layout for tablets and mobile devices.
+- Avoid unnecessarily narrow containers, oversized mobile-style buttons, and excessive empty spaces.
+- Ensure all sections align consistently.
+- Maintain a clean, modern, accessible design.
+
+### Strict viewport requirement
+The entire primary application interface must fit within `100vh` without unnecessary vertical or horizontal page scrollbars.
+
+- Use appropriate CSS sizing, such as `height: 100dvh` or `min-height: 100vh`, depending on the layout.
+- Use Flexbox or CSS Grid for proper space distribution.
+- Apply `min-height: 0` and `min-width: 0` where necessary to prevent overflow.
+- Avoid fixed dimensions that cause content to overflow.
+- Account for headers, navigation bars, footers, and bottom navigation when calculating available space.
+- Prevent horizontal overflow across all supported screen sizes.
+- Do not hide important content just to remove scrollbars.
+- If 
+<truncated 18012 bytes>
+ollbars appear at the target viewport sizes.
+
+Do not claim that a test passed unless you actually ran it and verified its result.
+
+### Phase 5: Final Report
+When the work is complete, provide a summary containing:
+
+1. Every issue fixed.
+2. The files changed.
+3. The root cause of each major bug.
+4. Any backend or configuration changes required.
+5. Tests executed and their actual results.
+6. Any issues that remain unresolved.
+7. Any environment variables or setup steps required to run the application.
+
+## Important Constraints
+
+- Do not rebuild the project from scratch.
+- Do not remove working features to hide bugs.
+- Do not replace real functionality with static UI.
+- Do not use fake data for location, API status, or emergency contacts.
+- Do not expose secrets, tokens, or private user information.
+- Do not change the database schema unless necessary.
+- Do not introduce unnecessary dependencies.
+- Do not break existing routes or authentication.
+- Do not claim successful implementation without verification.
+- Preserve the application's existing identity and core functionality.
+
+**Start by inspecting the existing project files. Identify the root causes, implement the fixes, run the relevant tests, and report the actual results.**
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-31T14:16:06+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\app.py (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 18
+Other open documents:
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\css\style.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\js\location.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\index.html (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

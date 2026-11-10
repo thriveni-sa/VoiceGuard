@@ -1,0 +1,460 @@
+<USER_REQUEST>
+gsd-# TASK: Fix All UI/UX Issues, Functional Bugs, and Responsive Design Problems
+
+Act as a senior full-stack developer, UI/UX engineer, and QA tester.
+
+I have an existing application that needs debugging, UI improvements, responsive design corrections, and functional fixes. Inspect the entire existing codebase before making changes.
+
+**Important:** Do not rebuild the application from scratch. Work with the existing architecture, framework, components, styling, APIs, and database wherever possible.
+
+Your goal is to fix every issue listed below, preserve existing functionality, and ensure the application works correctly on both desktop and mobile devices.
+
+## 1. Fix the Overall Layout and Desktop Display
+
+The application currently looks too much like a mobile interface when viewed on a laptop.
+
+Requirements:
+- Redesign the layout to look professional and natural on desktop and laptop screens.
+- Use the available screen width effectively.
+- Ensure navigation, cards, forms, dashboards, and content sections are appropriately sized for desktop.
+- Maintain a responsive layout for tablets and mobile devices.
+- Avoid unnecessarily narrow containers, oversized mobile-style buttons, and excessive empty spaces.
+- Ensure all sections align consistently.
+- Maintain a clean, modern, accessible design.
+
+### Strict viewport requirement
+The entire primary application interface must fit within `100vh` without unnecessary vertical or horizontal page scrollbars.
+
+- Use appropriate CSS sizing, such as `height: 100dvh` or `min-height: 100vh`, depending on the layout.
+- Use Flexbox or CSS Grid for proper space distribution.
+- Apply `min-height: 0` and `min-width: 0` where necessary to prevent overflow.
+- Avoid fixed dimensions that cause content to overflow.
+- Account for headers, navigation bars, footers, and bottom navigation when calculating available space.
+- Prevent horizontal overflow across all supported screen sizes.
+- Do not hide important content just to remove scrollbars.
+- If an internal panel genuinely requires scrolling, keep the scroll contained within that panel and preserve usability.
+
+Test the layout at common laptop resolutions, including 1366×768 and 1920×1080, as well as smaller desktop windows.
+
+## 2. Move Bottom Navigation Buttons to the Top-Left Corner
+
+Currently, the navigation buttons are positioned at the bottom of the interface.
+
+Required changes:
+- Move the existing bottom navigation buttons to the top-left corner.
+- Integrate them naturally into the application header or navigation area.
+- Maintain consistent spacing, alignment, and button sizes.
+- Ensure that navigation remains accessible on desktop and mobile devices.
+- Avoid duplicating navigation controls.
+- Preserve all existing navigation destinations and click handlers.
+
+## 3. Fix the Blue Caption Under the VOXGUARD Logo
+
+The blue caption or tagline displayed below the VOXGUARD logo needs correction.
+
+Requirements:
+- Inspect the existing logo and caption implementation.
+- Correct the caption's color, styling, alignment, and positioning as appropriate.
+- Ensure the caption is clearly visible and consistent with the application's design system.
+- Preserve the existing branding and text unless a change is necessary to fix the problem.
+- Verify that the caption looks correct in both light and dark themes.
+
+## 4. Fix the Dark Theme Toggle
+
+The dark theme functionality in the dashboard and settings is not working correctly.
+
+Investigate and fix:
+- The dark theme toggle's click handler.
+- Theme state management.
+- CSS variables and theme classes.
+- Components that do not respond to theme changes.
+- Text and background contrast.
+- Theme persistence after refreshing the page.
+- Synchronization between the dashboard and settings.
+
+Expected behavior:
+1. Clicking the dark theme toggle enables dark mode.
+2. Clicking it again restores light mode.
+3. The theme applies consistently across the entire application.
+4. All cards, navigation elements, forms, dialogs, buttons, and text use appropriate theme colors.
+5. The selected theme persists across page navigation and refreshes if persistence is supported by the existing application.
+6. The toggle's visual state always reflects the active theme.
+
+Do not implement a separate theme state for each page if the application already has a shared theme management system.
+
+## 5. Fix the API Online Status Icon
+
+The API Online status icon is not working correctly.
+
+Inspect:
+- The icon's rendering logic.
+- Its state and event handlers.
+- The API health-check mechanism.
+- Network requests and response handling.
+- Loading, success, and error states.
+
+Requirements:
+- If the API is reachable and healthy, display the appropriate online status.
+- If the API is unavailable, display an offline or unavailable status.
+- If the status cannot be determined, show an appropriate unknown or checking state.
+- Avoid displaying a false online status when the API is unavailable.
+- If the feature is intended to provide live status, update it using an appropriate polling interval or the existing real-time mechanism.
+- Clean up timers, listeners, and subscriptions when components unmount.
+- Do not introduce unnecessary API requests.
+
+If the icon cannot be made functional because the backend health endpoint is missing, document the missing dependency and implement the safest compatible solution.
+
+Do not simply remove the icon to hide the bug.
+
+## 6. Fix Voice Feedback in Settings
+
+Under Settings → Voice, the feedback functionality is not working properly.
+
+Investigate the existing voice feedback implementation and identify the root cause.
+
+Requirements:
+- Make feedback controls functional.
+- Ensure enabled and disabled buttons have the correct state.
+- Correct button dimensions, alignment, spacing, and responsive behavior.
+- Ensure button labels and visual states are clear.
+- Implement the expected action for each control.
+- Show appropriate success or error feedback when an operation is completed or fails.
+- Prevent duplicate submissions where appropriate.
+- Ensure settings changes are saved and restored correctly when persistence is supported.
+
+If voice feedback depends on a backend API, verify the request method, endpoint, payload, response handling, and authentication requirements.
+
+Do not simulate a successful operation when the actual operation fails.
+
+## 7. Fix the Emergency SOS Confirmation Flow
+
+The Emergency SOS button currently requests user confirmation after it is clicked.
+
+Review the existing implementation and improve the flow so that the user is not left waiting indefinitely for a confirmation.
+
+Required behavior:
+- When the SOS button is clicked, initiate a short confirmation countdown of approximately 5–10 seconds.
+- Display a clear countdown and provide a Cancel button.
+- If the user cancels during the countdown, cancel the pending SOS action.
+- If the user does not cancel before the countdown ends, automatically confirm and execute the intended SOS action.
+- Provide clear visual feedback while the countdown is running.
+- Prevent duplicate SOS requests.
+- Handle API errors and failed requests appropriately.
+- Ensure that the countdown is cleaned up when canceled or when the component unmounts.
+
+### Critical safety requirement
+
+Do not silently trigger a real emergency alert without making the countdown, cancellation behavior, and consequences clear to the user.
+
+Use the application's existing SOS backend and contact notification mechanism. Do not invent an endpoint or claim that an alert was sent unless the backend confirms success.
+
+If the application is intended for real emergency use, preserve an accessible way to cancel a false alarm and provide an explicit, clearly visible SOS state.
+
+The automatic confirmation applies only to the pending action after the countdown expires, provided the user has not canceled it.
+
+## 8. Fix Privacy Settings and Profile Navigation
+
+Inspect the Privacy and Profile sections.
+
+Requirements:
+- Ensure that the Privacy settings page opens correctly.
+- Ensure that the Profile page opens correctly.
+- Fix broken navigation links and click handlers.
+- Verify that settings are loaded and saved correctly.
+- Ensure that privacy-related controls perform their intended actions.
+- Correct any incorrect routes, missing components, or permission errors.
+- Ensure the pages display correctly in both light and dark modes.
+
+Do not change the intended privacy behavior without understanding the existing implementation.
+
+## 9. Fix the Flask REST API Endpoint URL
+
+The Flask REST API endpoint URL is not working correctly.
+
+Investigate both frontend and backend configurations.
+
+Check:
+- The configured API base URL.
+- Flask route definitions and HTTP methods.
+- Frontend API request URLs.
+- Environment variables and configuration files.
+- Development and production configurations.
+- CORS configuration, if cross-origin requests are used.
+- Request payloads and response formats.
+- Authentication and authorization requirements.
+- Network failures and server-side exceptions.
+- Proxy configuration, if applicable.
+
+Requirements:
+- Ensure frontend requests point to the correct Flask API endpoint.
+- Ensure Flask routes match the URLs and HTTP methods used by the frontend.
+- Use environment-based configuration rather than hardcoding deployment-specific URLs.
+- Handle failed requests gracefully.
+- Display meaningful error messages without exposing secrets or sensitive server details.
+- Preserve existing authentication and authorization behavior.
+- Do not invent new endpoint URLs without inspecting the actual backend routes.
+
+Test the relevant endpoints and verify that the frontend correctly handles successful responses and failures.
+
+## 10. Fix Missing Back and Forward Navigation Controls
+
+The Back and Forward navigation controls are missing.
+
+Requirements:
+- Add Back and Forward navigation controls in the appropriate navigation area.
+- Position them consistently with the updated top-left navigation.
+- Use the browser History API or the application's existing routing system.
+- Ensure Back navigates to the previous valid application route.
+- Ensure Forward navigates to the next route when browser history permits.
+- Disable or appropriately handle controls when navigation is unavailable.
+- Avoid adding duplicate browser-history entries unnecessarily.
+- Ensure the controls work with the application's existing routing framework.
+
+If the application has a custom navigation history, use it consistently rather than introducing an unrelated navigation system.
+
+## 11. Improve Live Location Tracking
+
+The map opens, but the user's location is not being tracked automatically.
+
+This is a critical functionality issue.
+
+Investigate:
+- Browser geolocation permissions.
+- The geolocation API implementation.
+- The map component and its initialization.
+- The current location marker.
+- The location update mechanism.
+- Map centering and viewport updates.
+- Error handling and permission-denied states.
+
+Expected behavior:
+1. When the user opens the live location feature and grants location permission, retrieve the current location.
+2. Display the user's current position on the map.
+3. If continuous tracking is intended, use `navigator.geolocation.watchPosition()` or the application's existing location subscription mechanism.
+4. Update the location marker when new coordinates are received.
+5. Center or recenter the map appropriately without repeatedly interrupting manual map interaction.
+6. Display a clear status when location permission is denied, unavailable, or still loading.
+7. Clean up location watchers when tracking stops or the component unmounts.
+8. Handle GPS errors, timeouts, and unavailable location data.
+9. Avoid unnecessary location requests and excessive battery consumption.
+
+Browser geolocation generally requires HTTPS or a secure context, except for permitted local development contexts.
+
+Do not use hardcoded coordinates or fake location updates.
+
+Respect user consent and existing privacy controls. Do not transmit or share location data with external services unless the application's intended behavior explicitly requires it.
+
+## 12. Fix the Emergency Contacts Section
+
+The appearance and ordering of emergency contacts are incorrect.
+
+Requirements:
+- Inspect the existing emergency contacts data structure and UI.
+- Correct the layout, spacing, alignment, and ordering.
+- Display contact names, phone numbers, and other supported details consistently.
+- Ensure that the primary emergency contact, if supported, is clearly identifiable.
+- Correct add, edit, delete, and selection actions where applicable.
+- Ensure contacts are displayed in a predictable order.
+- Verify that changes persist correctly if the application supports contact storage.
+- Maintain responsive layouts and accessibility.
+- Handle empty contact lists and missing contact details gracefully.
+
+Do not create fake emergency contacts or alter stored contact information without authorization.
+
+## 13. Remove the Settings Icon from the Dashboard's Top-Right Corner
+
+The settings icon currently appears in the top-right corner of the dashboard and should be removed from that position.
+
+Requirements:
+- Remove the settings icon from the dashboard's top-right corner.
+- Preserve access to the Settings page through the appropriate existing navigation mechanism.
+- Do not remove the Settings page itself.
+- Remove any obsolete spacing or layout artifacts left behind.
+- Ensure the dashboard header remains balanced after the icon is removed.
+
+Do not delete shared settings functionality that other pages depend on.
+
+## 14. Fix the Language Selection Feature
+
+The language selection functionality in Settings is not working.
+
+Investigate:
+- The language selector component.
+- Available language definitions and translation resources.
+- Translation keys.
+- Application-wide language state.
+- Locale persistence.
+- Missing or incorrectly configured translation files.
+- Components that do not refresh after the language changes.
+
+Requirements:
+- Make language selection functional.
+- Update the interface text when a different supported language is selected.
+- Apply the selected language consistently across the application.
+- Persist the selection if supported by the existing architecture.
+- Restore the selected language after refreshing the page.
+- Provide a sensible fallback if a translation is missing.
+- Ensure the selector displays the currently active language.
+
+Do not claim that a language is supported unless the necessary translations exist. If translation resources are missing, identify them and implement the feature using the application's existing internationalization approach.
+
+## 15. Fix Voice Enable/Disable Button Sizes and Functionality
+
+Under Settings → Voice, the Enable and Disable buttons are incorrectly sized and are not functioning properly.
+
+Requirements:
+- Use consistent button heights, widths, padding, and spacing.
+- Ensure buttons are appropriately sized for desktop and mobile screens.
+- Make their enabled and disabled states visually distinct.
+- Connect each button to the correct voice setting action.
+- Ensure the selected state matches the actual application state.
+- Prevent contradictory states, such as both buttons appearing active simultaneously.
+- Display appropriate loading and error states when the setting is updated asynchronously.
+- Persist changes where supported.
+
+Do not confuse a visual toggle with the actual underlying voice functionality.
+
+## 16. Reorganize the "Your Safety Is Our Priority" Section
+
+The "Your Safety Is Our Priority" section is currently positioned at the bottom of the page.
+
+I need it positioned between the Save button and the Settings section, as appropriate for the existing interface.
+
+Requirements:
+- Reorganize the relevant components into the requested order.
+- Preserve the existing content and functionality.
+- Maintain consistent margins, spacing, and alignment.
+- Avoid overlapping cards or controls.
+- Ensure the section fits within the available viewport.
+- Verify that the layout works on laptop, desktop, tablet, and mobile screens.
+- Do not hide the section to satisfy the viewport restriction.
+
+If the existing page structure differs from the description, inspect the component hierarchy and place the section at the closest appropriate location without disrupting the application's intended workflow.
+
+## 17. Fix the Dashboard Settings and Component Organization
+
+Review the dashboard for unnecessary controls, inconsistent component placement, and duplicated functionality.
+
+Requirements:
+- Remove the dashboard's top-right Settings icon as described above.
+- Keep settings accessible through the correct navigation.
+- Correct the position of the safety section.
+- Ensure that the top navigation, page content, and bottom controls do not overlap.
+- Maintain consistent visual hierarchy.
+- Reuse existing components where practical.
+- Avoid introducing duplicated state management.
+
+## 18. General Functional and Visual Quality Checks
+
+Inspect the complete application for related issues that may not have been explicitly listed.
+
+Check:
+- Broken buttons and links.
+- Incorrect routing.
+- Missing click handlers.
+- React state synchronization issues, if React is used.
+- Console errors and warnings.
+- Failed network requests.
+- Incorrect API response handling.
+- Missing loading indicators.
+- Missing empty states.
+- Unhandled exceptions.
+- Incorrect CSS selectors.
+- Z-index and positioning problems.
+- Responsive layout issues.
+- Accessibility and keyboard navigation.
+- Inconsistent light and dark theme styling.
+- Broken persistence after refreshing the page.
+
+Fix issues directly related to the reported problems and any additional defects discovered during investigation.
+
+Avoid unrelated redesigns or unnecessary dependency changes.
+
+## 19. Mandatory Implementation Workflow
+
+Follow this sequence.
+
+### Phase 1: Inspect
+1. Identify the frontend and backend frameworks.
+2. Inspect the project folder structure.
+3. Identify the dashboard, settings, voice, map, emergency contacts, SOS, navigation, and theme components.
+4. Inspect the Flask routes and API configuration.
+5. Identify the state management and persistence mechanisms.
+6. Review existing dependencies and available tests.
+7. Determine the root cause of each reported issue.
+
+### Phase 2: Plan
+Create a concise checklist mapping each issue to:
+- The affected component or file.
+- The identified root cause.
+- The proposed fix.
+- The verification method.
+
+### Phase 3: Implement
+1. Fix the root causes rather than applying superficial workarounds.
+2. Reuse existing components and conventions.
+3. Preserve existing features and data.
+4. Keep frontend and backend behavior consistent.
+5. Ensure proper loading, error, and success states.
+6. Avoid hardcoded values, fake data, and simulated API success.
+7. Make the changes directly in the existing project files.
+
+### Phase 4: Verify
+Run the relevant existing tests, lint checks, and build commands.
+
+Verify:
+- All reported buttons and navigation controls work.
+- Dark and light themes work across the application.
+- Language switching works for supported languages.
+- Voice settings work correctly.
+- API online status reflects the real API state.
+- Flask endpoints are correctly configured.
+- Live location works when permission is granted.
+- SOS countdown and cancellation behavior work correctly.
+- Emergency contacts display correctly.
+- Privacy and Profile navigation work.
+- The requested layout changes are implemented.
+- The application works at common laptop and mobile resolutions.
+- No unnecessary horizontal or vertical page scrollbars appear at the target viewport sizes.
+
+Do not claim that a test passed unless you actually ran it and verified its result.
+
+### Phase 5: Final Report
+When the work is complete, provide a summary containing:
+
+1. Every issue fixed.
+2. The files changed.
+3. The root cause of each major bug.
+4. Any backend or configuration changes required.
+5. Tests executed and their actual results.
+6. Any issues that remain unresolved.
+7. Any environment variables or setup steps required to run the application.
+
+## Important Constraints
+
+- Do not rebuild the project from scratch.
+- Do not remove working features to hide bugs.
+- Do not replace real functionality with static UI.
+- Do not use fake data for location, API status, or emergency contacts.
+- Do not expose secrets, tokens, or private user information.
+- Do not change the database schema unless necessary.
+- Do not introduce unnecessary dependencies.
+- Do not break existing routes or authentication.
+- Do not claim successful implementation without verification.
+- Preserve the application's existing identity and core functionality.
+
+**Start by inspecting the existing project files. Identify the root causes, implement the fixes, run the relevant tests, and report the actual results.**
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-31T14:16:06+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\app.py (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 18
+Other open documents:
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\css\style.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\js\location.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\index.html (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

@@ -1,0 +1,692 @@
+[
+  {
+    "dispatchId": "TEST-SANDBOX-8C50A3EA",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-07T14:27:16.330245+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 07, 2026, 07:57:16 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-45E90765",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T14:27:16.290102+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 07, 2026, 07:57:16 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-802D448A",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-07T14:27:16.255912+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 07, 2026, 07:57:16 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-536D6C70",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T14:27:16.225375+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 07, 2026, 07:57:16 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-D79AA507",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T14:23:52.486649+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:53:52 PM\nLocation: 13.38733\u00b0 N, 77.86058\u00b0 E (Accuracy: \u00b1500m)\nGoogle Maps Link: https://www.google.com/maps?q=13.387334,77.860576",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-267E6103",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T14:23:52.451713+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:53:52 PM\nLocation: 13.38733\u00b0 N, 77.86058\u00b0 E (Accuracy: \u00b1500m)\nGoogle Maps Link: https://www.google.com/maps?q=13.387334,77.860576",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B680710B",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T14:17:30.398186+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:47:30 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-491B6F3D",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T14:17:30.356908+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:47:30 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-10A1767D",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T14:15:53.309026+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:45:53 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-9F90B211",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T14:15:53.263060+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:45:53 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-DF81ABC4",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T13:57:37.068330+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:27:37 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-6D8A11B1",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T13:57:37.023251+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:27:37 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-E2EBACF0",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-07T13:57:00.740221+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:27:00 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-D7CC78FB",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-07T13:57:00.729850+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: User name\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sat, Nov 7, 2026, 07:27:00 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-827A9D60",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:19:53.050098+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:53 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-73710DC3",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:19:53.036887+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:53 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-A93158B9",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:19:52.999839+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:52 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-764F1F5D",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:19:44.986488+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:44 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-26E1C080",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:19:38.127702+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:38 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-69447123",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:19:38.103333+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:38 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-4FBEE70F",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:19:31.268376+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:49:31 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-D7AC7080",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:15:36.082262+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:45:36 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-98BCFA22",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:15:36.051713+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:45:36 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-BF98C501",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:15:00.352374+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:45:00 PM\nLocation: 13.38733\u00b0 N, 77.86058\u00b0 E (Accuracy: \u00b1500m)\nGoogle Maps Link: https://www.google.com/maps?q=13.387334,77.860576",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-197D30F3",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:15:00.319825+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:45:00 PM\nLocation: 13.38733\u00b0 N, 77.86058\u00b0 E (Accuracy: \u00b1500m)\nGoogle Maps Link: https://www.google.com/maps?q=13.387334,77.860576",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-E4F15DD6",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:14:12.104118+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:44:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-F59BD867",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:14:12.072870+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:44:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-F55F9DC1",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:14:12.046249+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:44:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-F111E768",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:14:05.787140+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:44:05 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-12658C3F",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:13:59.716678+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:43:59 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-C8F26219",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:13:59.691563+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:43:59 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-E67E13AA",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:13:54.982184+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:43:54 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-D88253B3",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:09:33.713398+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:33 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-281DE0A1",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:09:33.680748+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:33 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-058D4CD8",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:09:33.656368+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:33 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-FF6AF675",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:09:27.625192+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:27 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-FD84E2AB",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T16:09:21.868983+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:21 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-F6A78AB7",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T16:09:21.844562+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:21 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B47C71F4",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T16:09:16.022783+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:39:16 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-404E5F22",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:54:02.448242+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:24:02 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-CAA83A3E",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:53:56.922286+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:56 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-29DD6EC9",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:53:56.887615+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:56 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-4C58F20C",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:53:56.860425+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:56 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-A11A0CE5",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:53:51.749356+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:51 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-9C771040",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:53:46.668643+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:46 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-8905F183",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:53:46.654815+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:23:46 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-5F498E1B",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:51:42.495503+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:21:42 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-4E2587ED",
+    "recipient": "Mom",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:51:42.457862+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 1, 2026, 09:21:42 PM\nLocation: 13.38950\u00b0 N, 77.86147\u00b0 E (Accuracy: \u00b1159m)\nGoogle Maps Link: https://www.google.com/maps?q=13.389499860779125,77.86147464063497",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-1523D9B0",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:49:53.330948+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:53 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B2D072DF",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:49:43.961421+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:43 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-2E1A5B22",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:49:43.931968+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:43 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-D2E514A2",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:49:43.901121+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:43 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-57A045BE",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:49:38.632570+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:38 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-02874C24",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:49:33.367174+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:33 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-FC39E1E0",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:49:33.342912+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:19:33 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B94F4A5D",
+    "recipient": "Test Contact",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:39:47.397720+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:09:47 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-3320BA52",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:39:05.726446+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:09:05 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B0A1666B",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:39:05.696715+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:09:05 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-1D7C88A2",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:38:32.206944+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:32 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-2C0CC81B",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:38:32.183274+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Thriveni\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:32 PM\nLocation: 13.3952\u00b0 N, 77.7280\u00b0 E (Accuracy: \u00b15m)\nGoogle Maps Link: https://www.google.com/maps?q=13.3952,77.728",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-9918498F",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:38:12.165377+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-85CF9026",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:38:12.135765+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-9755E180",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:38:12.106763+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:12 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B0FE9B6D",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:38:11.645311+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:08:11 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-4154456A",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:33:50.950235+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:03:50 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-B76A1117",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:33:19.474817+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:03:19 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-7BCB12D2",
+    "recipient": "Dad",
+    "phone": "+91 9742803280",
+    "timestamp": "2026-11-01T15:33:19.438600+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:03:19 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-A9689746",
+    "recipient": "Mom",
+    "phone": "+91 91138 22011",
+    "timestamp": "2026-11-01T15:33:19.419284+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: Alex Mercer\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:03:19 PM\nLocation: Location unavailable (GPS permission denied / GPS offline)\nGoogle Maps Link: Unavailable",
+    "status": "delivered",
+    "testMode": true
+  },
+  {
+    "dispatchId": "TEST-SANDBOX-3ED032C9",
+    "recipient": "National Dispatch",
+    "phone": "+919113822011",
+    "timestamp": "2026-11-01T15:33:00.364411+00:00",
+    "provider": "VOICEGUARD Safe Test Sandbox",
+    "message": "EMERGENCY ALERT!\n\nContact Name: National Dispatch\nMessage: I need emergency assistance.\nAlert Type: Emergency Assistance\nDate and Time: Sun, Nov 01, 2026, 09:03:00 PM\nLocation: 12.97160\u00b0 N, 77.59460\u00b0 E (Accuracy: \u00b110m)\nGoogle Maps Link: https://www.google.com/maps?q=12.9716,77.5946",
+    "status": "delivered",
+    "testMode": true
+  }
+]

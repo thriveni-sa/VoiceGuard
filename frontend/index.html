@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>VOXGUARD - Voice-Assisted Emergency Alert Messenger | Your Safety. Your Voice. Your Lifeline.</title>
+  <meta name="description" content="VOXGUARD: Voice-Assisted Emergency Alert Messenger. Real speech recognition, real HTML5 geolocation, instant SOS alerts, and emergency contact dispatch. Team SUPREME.">
+  <meta name="theme-color" content="#2563eb">
+    <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('voiceguard_theme');
+        if (!theme) {
+          var settings = JSON.parse(localStorage.getItem('voiceguard_settings') || '{}');
+          theme = settings.theme;
+        }
+        var isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <!-- Accessibility Skip Navigation Link -->
+  <a href="#main-viewport" class="skip-link">Skip to emergency controls</a>
+
+  <!-- ARIA Live Announcement Region for Screen Readers -->
+  <div id="sr-announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+  <div class="app-shell">
+    
+    <!-- ==========================================
+         TOP-LEFT VERTICAL SIDEBAR NAVIGATION (Requirement 6)
+         Positions Dashboard, Contacts, History, and Settings vertically on the left
+         ========================================== -->
+    <aside class="vox-sidebar" role="navigation" aria-label="Main Navigation">
+      <!-- Brand Logo & Preferred Tagline (Requirement 9) -->
+      <div class="vox-sidebar-brand" role="banner">
+        <div class="vox-shield-logo" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 5v6.5c0 5.25 3.42 10.18 8 11.5 4.58-1.32 8-6.25 8-11.5V5l-8-3z" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.2"/>
+            <path d="M7.5 12.5h2.2l1.6-3.2 2.2 6.4 1.6-3.2h2.2" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="vox-brand-meta">
+          <h1 class="vox-app-title">VOXGUARD</h1>
+          <span class="vox-app-subtitle" data-i18n="app_subtitle">Your Safety. Our Priority.</span>
+        </div>
+      </div>
+
+      <!-- History Back / Forward Controls -->
+      <div class="vox-history-nav-group" aria-label="History navigation">
+        <button id="btn-nav-back" class="nav-history-btn" aria-label="Go back" title="Go back (Alt+Left)" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span class="nav-hist-label">Back</span>
+        </button>
+        <button id="btn-nav-forward" class="nav-history-btn" aria-label="Go forward" title="Go forward (Alt+Right)" disabled>
+          <span class="nav-hist-label">Forward</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Vertically Stacked Page Navigation Buttons (Requirement 6) -->
+      <div class="vox-vertical-nav-items" role="tablist">
+        <button class="nav-item-btn active" data-tab="tab-dashboard" id="nav-btn-dashboard" aria-current="page" role="tab">
+          <svg class="vox-nav-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span class="vox-nav-text" data-i18n="nav_dashboard">Dashboard</span>
+        </button>
+
+        <button class="nav-item-btn" data-tab="tab-contacts" id="nav-btn-contacts" role="tab">
+          <svg class="vox-nav-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+          <span class="vox-nav-text" data-i18n="nav_contacts">Contacts</span>
+        </button>
+
+        <button class="nav-item-btn" data-tab="tab-history" id="nav-btn-history" role="tab">
+          <svg class="vox-nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <!-- Renamed from Emergency History to History (Requirement 12) -->
+          <span class="vox-nav-text" data-i18n="nav_history">History</span>
+        </button>
+
+        <button class="nav-item-btn" data-tab="tab-settings" id="nav-btn-settings" role="tab">
+          <svg class="vox-nav-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+          </svg>
+          <span class="vox-nav-text" data-i18n="nav_settings">Settings</span>
+        </button>
+        <div class="vox-sidebar-bottom-emblem" aria-hidden="true">
+          <svg width="36" height="40" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L4 5v6.5c0 5.25 3.42 10.18 8 11.5 4.58-1.32 8-6.25 8-11.5V5l-8-3z" stroke="rgba(59, 130, 246, 0.45)" stroke-width="1.5" fill="rgba(37, 99, 235, 0.08)"/>
+            <path d="M8 12.5h2l1.5-3 2 6 1.5-3h2" stroke="rgba(96, 165, 250, 0.55)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area: Header Status Bar + Viewport Panels -->
+    <div class="vox-content-area">
+      <!-- Top Action / Status Bar (Exact UI: Combined Dark Glass Pill & User Avatar) -->
+      <header class="vox-header" role="banner">
+        <div class="vox-header-status-left">
+          <div class="vox-header-status-capsule" style="display: none !important;" aria-hidden="true">
+            <!-- Live Master Status Badge -->
+            <div class="vox-system-pill" id="master-status-badge" data-status="Ready" role="status" aria-label="System status">
+              <span class="vox-pill-dot" aria-hidden="true"></span>
+              <span id="master-status-text" data-i18n="system_ready">Ready</span>
+            </div>
+            <span class="vox-status-sep" aria-hidden="true">|</span>
+            <!-- Flask REST API Status Badge -->
+            <div class="api-status-pill online" id="api-status-badge" role="status" title="Flask Backend REST API (http://127.0.0.1:5000)">
+              <svg class="vox-signal-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="10"></line>
+                <line x1="6" y1="20" x2="6" y2="16"></line>
+              </svg>
+              <span id="api-status-text">API Online</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vox-header-actions">
+          <!-- Functional Theme Toggle Button (Light / Dark) -->
+          <button id="btn-theme-toggle" class="vox-circle-icon-btn vox-theme-toggle-btn" style="display: none !important;" aria-hidden="true" aria-label="Toggle Dark / Light Theme" title="Toggle Dark / Light Theme">
+            <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <!-- User Profile Avatar Pill (T v) -->
+          <div class="vox-user-avatar-wrap">
+            <button id="btn-user-profile" class="vox-user-avatar-btn" aria-label="User profile menu" aria-expanded="false" title="User Profile (Thriveni S A)">
+              <span class="vox-avatar-circle">T</span>
+              <svg class="vox-avatar-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="vox-user-dropdown" id="user-profile-dropdown" style="display: none;">
+              <div class="vox-user-dropdown-header">
+                <strong>Thriveni S A</strong>
+                <small>Personal Safety Guard</small>
+              </div>
+              <div class="vox-dropdown-divider"></div>
+              <button class="vox-dropdown-item" id="btn-profile-theme-action">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <span>Toggle Dark Theme</span>
+              </button>
+              <button class="vox-dropdown-item" id="btn-profile-settings-action">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span>Open Settings</span>
+              </button>
+            </div>
+          </div>
+          <button id="btn-toggle-contrast" style="display: none !important;" aria-hidden="true" aria-label="Toggle High Contrast Mode"></button>
+        </div>
+      </header>
+
+      <!-- Main Viewport Body -->
+      <main class="vox-main-content" id="main-viewport" role="main">
+
+        <!-- ==========================================
+             TAB 1: DASHBOARD (Requirements 4, 7, 8)
+             Logical Hierarchy:
+             1. Voice Assistant Hero Card
+             2. Live Location Card & Emergency Contacts Card
+             3. Giant EMERGENCY SOS Capsule Button
+             ========================================== -->
+        <section id="tab-dashboard" class="tab-panel active" aria-labelledby="nav-btn-dashboard">
+          <div class="vox-view-column">
+            
+            <!-- 1. Voice Assistant Hero Card (Exact Match to Reference Image) -->
+            <div class="vox-hero-card" id="card-mic-module">
+              <!-- Left content -->
+              <div class="vox-hero-left">
+                <div class="vox-hero-title-row">
+                  <div class="vox-sound-wave-icon purple" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                  <span class="vox-hero-status-tag" id="mic-status-label">Voice Monitoring: <strong class="vox-status-active-txt" id="voice-state-badge">Active</strong></span>
+                </div>
+                <h2 class="vox-hero-heading" data-i18n="voice_heading">Say &ldquo;Help me&rdquo;</h2>
+                <p class="vox-hero-sub" id="mic-instruction-label" data-i18n="voice_sub">Click the mic or speak to activate real-time speech recognition.</p>
+
+                <!-- Pill Activation Button (Exact cyan/blue capsule with play icon & equalizer) -->
+                <div class="vox-mic-pill" id="btn-start-listening" role="button" tabindex="0" aria-label="Tap to start listening" title="Tap to toggle speech recognition">
+                  <span class="vox-pill-play-triangle">▶</span>
+                  <span id="voice-pill-text" data-i18n="voice_tap_listen">Tap to start listening</span>
+                  <span class="vox-mic-pill-divider">|</span>
+                  <div class="vox-pill-wave-bars" id="voice-soundbars" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+
+                <!-- Voice Trigger Quick Guide Chips (Preserved for speech recognition audit) -->
+                <div class="vox-trigger-chips-row" style="display: none;">
+                  <span class="phrase-tag" data-phrase="help me">"Help me"</span>
+                  <span class="phrase-tag" data-phrase="emergency">"Emergency"</span>
+                  <span class="phrase-tag" data-phrase="i need help">"I need help"</span>
+                  <span class="phrase-tag" data-phrase="please help me">"Please help me"</span>
+                  <span class="phrase-tag" data-phrase="send an sos">"Send an SOS"</span>
+                </div>
+                <button id="btn-stop-listening" style="display:none;" aria-label="Stop Listening"></button>
+                <div id="voice-fallback-notice" style="display:none;"></div>
+              </div>
+
+              <!-- Center: Ripple Microphone with flanking soundwaves -->
+              <div class="vox-hero-center-mic">
+                <div class="vox-soundbars-flank left" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="vox-concentric-wrap">
+                  <div class="vox-ring ring-outer"></div>
+                  <div class="vox-ring ring-middle"></div>
+                  <button id="btn-activate-mic" class="vox-center-mic-btn" aria-label="Toggle voice monitoring microphone" aria-pressed="false" title="Click to toggle listening (Alt+M)">
+                    <svg id="mic-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                      <line x1="12" y1="19" x2="12" y2="23"/>
+                      <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="vox-soundbars-flank right" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+
+              <!-- Right: Glowing Neon 3D Shield Badge (Exact visual from image) -->
+              <div class="vox-hero-right-badge" title="VOXGUARD Armed & Active">
+                <div class="vox-neon-shield-card">
+                  <svg width="64" height="72" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L4 5v6.5c0 5.25 3.42 10.18 8 11.5 4.58-1.32 8-6.25 8-11.5V5l-8-3z" fill="url(#voxHeroShieldGrad)" filter="drop-shadow(0 0 14px rgba(37,99,235,0.65))"/>
+                    <path d="M6.5 12.5h2.2l1.6-3.2 2.2 6.4 1.6-3.2h3.4" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                      <linearGradient id="voxHeroShieldGrad" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3b82f6"/>
+                        <stop offset="1" stop-color="#1d4ed8"/>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hidden Compatibility Elements for Voice Recognition Tests -->
+            <div style="display: none;" aria-hidden="true">
+              <span id="voice-indicator-badge">Inactive</span>
+              <div id="voice-last-transcript">"Awaiting voice activation..."</div>
+              <div id="voice-interim-transcript"></div>
+              <div id="voice-confidence-text">Web Speech Engine</div>
+              <span id="voice-engine-support">WebSpeech Ready</span>
+              <div id="master-status-detail">System armed and awaiting user input.</div>
+              <div id="legend-ready"></div>
+              <div id="legend-listening"></div>
+              <div id="legend-trigger"></div>
+              <div id="legend-preparing"></div>
+              <div id="legend-alert"></div>
+            </div>
+
+            <!-- 2. Middle Row: Live Location & Emergency Contacts (Exact Match) -->
+            <div class="vox-dash-grid">
+              
+              <!-- Live Location Card (Street Map + Pulsing Beacon + Telemetry) -->
+              <div class="vox-grid-card vox-location-preview-card" id="summary-location-card">
+                <div class="vox-card-head" id="dash-loc-head">
+                  <div class="vox-head-left">
+                    <div class="vox-icon-badge purple">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                    </div>
+                    <span class="vox-card-title" data-i18n="live_loc">Live Location</span>
+                    <span class="location-state-pill" id="location-state-badge" data-state="Standby">
+                      <span id="loc-badge-status-text">Locating GPS...</span>
+                    </span>
+                    <span id="loc-badge-text" style="display: none;">Location Found</span>
+                  </div>
+                  <span class="vox-card-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+                </div>
+
+                <!-- Realistic Street Map Canvas View -->
+                <div class="vox-map-visual-wrap">
+                  <div class="vox-map-grid-layer">
+                    <svg class="vox-street-map-svg" width="100%" height="100%" viewBox="0 0 500 240" preserveAspectRatio="none">
+                      <rect width="500" height="240" fill="#f8fafc"/>
+                      <!-- Parks & Green Areas -->
+                      <path d="M30 20 h120 v65 h-120 z" fill="#ecfdf5"/>
+                      <path d="M350 30 h115 v70 h-115 z" fill="#ecfdf5"/>
+                      <path d="M270 145 h155 v65 h-155 z" fill="#ecfdf5"/>
+                      <path d="M25 155 h85 v55 h-85 z" fill="#ecfdf5"/>
+                      <!-- City Blocks -->
+                      <rect x="175" y="15" width="150" height="75" rx="4" fill="#f1f5f9"/>
+                      <rect x="65" y="105" width="95" height="40" rx="4" fill="#f1f5f9"/>
+                      <rect x="185" y="165" width="70" height="55" rx="4" fill="#f1f5f9"/>
+                      <!-- Roads Network -->
+                      <path d="M0 95 L500 95" stroke="#e2e8f0" stroke-width="14"/>
+                      <path d="M0 95 L500 95" stroke="#ffffff" stroke-width="10"/>
+                      <path d="M165 0 L165 240" stroke="#e2e8f0" stroke-width="12"/>
+                      <path d="M165 0 L165 240" stroke="#ffffff" stroke-width="8"/>
+                      <path d="M335 0 L335 240" stroke="#e2e8f0" stroke-width="12"/>
+                      <path d="M335 0 L335 240" stroke="#ffffff" stroke-width="8"/>
+                      <path d="M0 25 L500 215" stroke="#e2e8f0" stroke-width="9"/>
+                      <path d="M0 25 L500 215" stroke="#ffffff" stroke-width="6"/>
+                    </svg>
+                  </div>
+
+                  <!-- Overlay Action: View on Google Maps (Exact Match) -->
+                  <a id="btn-open-maps" class="vox-map-btn-overlay" href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" aria-label="View on Google Maps">
+                    <span>View on Google Maps</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </a>
+
+                  <!-- Centered Pulsing Live Location Beacon -->
+                  <div class="vox-live-marker-center">
+                    <div class="vox-marker-tooltip">
+                      <span class="vox-red-pin">📍</span>
+                      <span>You are here</span>
+                    </div>
+                    <div class="vox-marker-pulse-ring"></div>
+                    <div class="vox-marker-pulse-ring-outer"></div>
+                    <div class="vox-marker-dot"></div>
+                  </div>
+                </div>
+
+                <!-- Footer Telemetry Strip (Exact Match) -->
+                <div class="vox-loc-telemetry-footer">
+                  <div class="vox-telemetry-item">
+                    <svg class="vox-tele-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.4">
+                      <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+                      <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+                      <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+                    </svg>
+                    <div class="vox-tele-meta">
+                      <span class="vox-tele-label">Last Updated</span>
+                      <strong class="vox-tele-val" id="location-timestamp">Just now</strong>
+                    </div>
+                  </div>
+
+                  <span class="vox-tele-divider" aria-hidden="true">|</span>
+
+                  <div class="vox-telemetry-item">
+                    <button id="btn-get-location" class="vox-recalibrate-icon-btn" title="Recalibrate GPS Location (Real HTML5)" aria-label="Recalibrate GPS">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                      </svg>
+                    </button>
+                    <div class="vox-tele-meta">
+                      <span class="vox-tele-label">Accuracy</span>
+                      <strong class="vox-tele-val" id="location-accuracy-display">&plusmn; 5 m</strong>
+                    </div>
+                  </div>
+
+                  <!-- Compatibility Elements for GPS tests -->
+                  <div id="location-coords-display" style="display: none;">Lat: --  Lon: --</div>
+                  <div id="location-latlng-raw" style="display: none;">Lat: --, Lng: --</div>
+                  <button id="btn-retry-location" style="display:none;" aria-label="Retry Location"></button>
+                </div>
+              </div>
+
+              <!-- Emergency Contacts Summary Card (Exact Match with Call & Chat Icons) -->
+              <div class="vox-grid-card vox-contacts-preview-card" id="summary-contacts-card">
+                <div class="vox-card-head" id="dash-contacts-head">
+                  <div class="vox-head-left">
+                    <div class="vox-icon-badge purple">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                      </svg>
+                    </div>
+                    <span class="vox-card-title" data-i18n="emergency_contacts">Emergency Contacts</span>
+                  </div>
+                  <button id="btn-view-all-contacts" class="vox-manage-contacts-pill-btn" aria-label="Manage Contacts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span data-i18n="manage_contacts">Manage Contacts</span>
+                  </button>
+                </div>
+
+                <div class="vox-card-body">
+                  <span class="vox-sub-count-tag" id="contacts-count-display">3 Contacts Saved</span>
+                  <div class="vox-mini-contacts" id="dash-mini-contacts-list">
+                    <!-- Dynamically populated with Mom, Dad, Ambulance + Functional Call & Chat buttons -->
+                  </div>
+                  <div id="contacts-primary-display" style="display: none;"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 3. Giant Glowing EMERGENCY SOS Capsule Button (Exact Match) -->
+            <div class="vox-sos-section" id="card-sos-module">
+              <button id="btn-trigger-sos" class="vox-giant-sos-btn" aria-label="Trigger Manual Emergency SOS alert" title="Click or press Alt+S to trigger Emergency SOS">
+                <!-- Warning Triangle Icon -->
+                <div class="vox-sos-warning-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                  </svg>
+                </div>
+
+                <span class="vox-sos-white-sep" aria-hidden="true">|</span>
+
+                <div class="vox-sos-meta-col">
+                  <span class="vox-sos-main-txt" data-i18n="emergency_sos">EMERGENCY SOS</span>
+                  <span class="vox-sos-sub-txt" data-i18n="tap_sos">Tap to send immediate alert</span>
+                </div>
+
+                <!-- Right Arrow Circle -->
+                <div class="vox-sos-right-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </button>
+            </div>
+
+            <!-- Hidden compatibility elements for Alerts audit -->
+            <div style="display: none;" aria-hidden="true">
+              <span id="alert-recent-status">No Active Alert</span>
+              <span id="alert-recent-time">System idle</span>
+              <span id="alert-recent-trigger">Trigger: None</span>
+              <button id="btn-view-all-alerts">Logs</button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 2: EMERGENCY CONTACTS (Requirement 11)
+             - Primary ICE Contact highlighted with gold badge & aura
+             - One-click "⭐ Set as Primary" button
+             - Immediate LocalStorage + API persistence
+             ========================================== -->
+        <section id="tab-contacts" class="tab-panel" aria-labelledby="nav-btn-contacts">
+          <div class="vox-full-card">
+            <!-- Card Header -->
+            <div class="vox-card-title-header">
+              <div class="vox-title-with-icon">
+                <div class="vox-icon-box purple big">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                  </svg>
+                </div>
+                <div class="vox-header-titles">
+                  <h2 class="vox-heading-large" data-i18n="emergency_contacts">Emergency Contacts</h2>
+                  <p class="vox-subtitle-desc">Your trusted contacts for emergencies</p>
+                </div>
+              </div>
+              <span class="vox-blue-pill-count" id="contacts-tab-count">2 Contacts</span>
+            </div>
+
+            <!-- Contacts List (scrolls internally, zero page scroll) -->
+            <div class="vox-contacts-scroll-area" id="contacts-list-container" role="list">
+              <!-- Dynamically populated by renderContactsView() with Primary ICE on top -->
+            </div>
+
+            <!-- Big Blue Button: + Add Contact -->
+            <button id="btn-add-contact" class="vox-big-blue-button" aria-label="Add new emergency contact">
+              <span class="plus-sign">+</span>
+              <span data-i18n="add_contact">Add Contact</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 3: HISTORY (Requirements 12 & 13)
+             - Renamed from "Emergency History" to "History"
+             - True Alert Status: Sent (confirmed by API), Prepared, Cancelled, Offline
+             - No false successful records!
+             ========================================== -->
+        <section id="tab-history" class="tab-panel" aria-labelledby="nav-btn-history">
+          <div class="vox-full-card">
+            <!-- Card Header -->
+            <div class="vox-card-title-header">
+              <div class="vox-title-with-icon">
+                <div class="vox-icon-box blue big">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div class="vox-header-titles">
+                  <!-- Renamed to History (Requirement 12) -->
+                  <h2 class="vox-heading-large" data-i18n="history_title">History</h2>
+                  <p class="vox-subtitle-desc" data-i18n="recent_alerts">Your recent SOS alerts</p>
+                </div>
+              </div>
+              <button id="btn-clear-history" class="vox-pill-action-btn" aria-label="Clear all alert history">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+                <span data-i18n="clear_all">Clear All</span>
+              </button>
+            </div>
+
+            <!-- Alert History List -->
+            <div class="vox-history-scroll-area" id="history-list-container" role="list">
+              <!-- Dynamically populated by renderHistoryView() -->
+            </div>
+
+            <!-- Geolocation API Info Banner -->
+            <div class="vox-geo-bottom-banner">
+              <div class="vox-geo-info-left">
+                <div class="vox-geo-pin-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                </div>
+                <span class="vox-geo-banner-text" data-i18n="loc_fetched_via">Location is fetched using HTML5 Geolocation API</span>
+              </div>
+              <div class="vox-geo-map-art" aria-hidden="true">
+                <svg width="40" height="28" viewBox="0 0 48 36" fill="none">
+                  <polygon points="4 8 16 4 32 8 44 4 44 28 32 32 16 28 4 32" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+                  <line x1="16" y1="4" x2="16" y2="28" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="2 2"/>
+                  <line x1="32" y1="8" x2="32" y2="32" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="2 2"/>
+                  <circle cx="28" cy="14" r="5" fill="#ef4444"/>
+                  <circle cx="28" cy="14" r="2" fill="#ffffff"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             TAB 4: SETTINGS (Requirements 1 & 2)
+             - 13 Languages with native script support (Requirement 1)
+             - Safety message repositioned BELOW Save Settings button (Requirement 2)
+             ========================================== -->
+        <section id="tab-settings" class="tab-panel" aria-labelledby="nav-btn-settings">
+          <div class="vox-full-card">
+            <!-- Card Header -->
+            <div class="vox-card-title-header">
+              <div class="vox-title-with-icon">
+                <div class="vox-icon-box blue big">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                  </svg>
+                </div>
+                <div class="vox-header-titles">
+                  <h2 class="vox-heading-large" data-i18n="settings_title">Settings</h2>
+                  <p class="vox-subtitle-desc" data-i18n="settings_sub">Customize your preferences</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segmented Tab Bar: General | Voice | Privacy -->
+            <div class="vox-segmented-tabs" role="tablist">
+              <button class="vox-segment-item active" id="tab-btn-general" data-subtab="subview-general" role="tab" aria-selected="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                </svg>
+                <span data-i18n="tab_general">General</span>
+              </button>
+              <button class="vox-segment-item" id="tab-btn-voice" data-subtab="subview-voice" role="tab" aria-selected="false">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+                <span data-i18n="tab_voice">Voice</span>
+              </button>
+              <button class="vox-segment-item" id="tab-btn-privacy" data-subtab="subview-privacy" role="tab" aria-selected="false">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                <span data-i18n="tab_privacy">Privacy</span>
+              </button>
+            </div>
+
+            <!-- Settings Items List (Scrollable internally) -->
+            <div class="vox-settings-body">
+              
+              <!-- Subview 1: General (Matches Image 4 rows) -->
+              <div class="vox-subview active" id="subview-general">
+                <!-- Row 1: Notifications -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-icon-circle">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                      </svg>
+                    </div>
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="notifications">Notifications</span>
+                      <span class="vox-setting-desc" data-i18n="notifications_desc">Get alerts for emergency actions</span>
+                    </div>
+                  </div>
+                  <label class="vox-toggle-switch" for="toggle-notifs">
+                    <input type="checkbox" id="toggle-notifs" checked>
+                    <span class="vox-toggle-slider"></span>
+                  </label>
+                </div>
+
+                <!-- Row 2: Location Sharing -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-icon-circle">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                      </svg>
+                    </div>
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="loc_sharing">Location Sharing</span>
+                      <span class="vox-setting-desc" data-i18n="loc_sharing_desc">Allow location access for SOS alerts</span>
+                    </div>
+                  </div>
+                  <label class="vox-toggle-switch" for="toggle-loc-share">
+                    <input type="checkbox" id="toggle-loc-share" checked>
+                    <span class="vox-toggle-slider"></span>
+                  </label>
+                </div>
+
+                <!-- Row 3: Theme Selector (Requirement 5) -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-icon-circle">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                      </svg>
+                    </div>
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="theme_label">Theme</span>
+                      <span class="vox-setting-desc" data-i18n="theme_desc">Choose your preferred theme</span>
+                    </div>
+                  </div>
+                  <div class="vox-pill-segmented-control" role="radiogroup" aria-label="Theme Selection">
+                    <button type="button" class="vox-pill-btn-opt active" data-theme-val="light" role="radio" aria-checked="true">Light</button>
+                    <button type="button" class="vox-pill-btn-opt" data-theme-val="dark" role="radio" aria-checked="false">Dark</button>
+                    <button type="button" class="vox-pill-btn-opt" data-theme-val="auto" role="radio" aria-checked="false">Auto</button>
+                  </div>
+                </div>
+
+                <!-- Row 4: Indian Language Selector (Strictly Opens Downward with Downward Scrollbar) -->
+                <div class="vox-setting-row" id="row-language-setting">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-icon-circle">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                      </svg>
+                    </div>
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="language_label">Language</span>
+                      <span class="vox-setting-desc" data-i18n="language_desc">Select your language</span>
+                    </div>
+                  </div>
+                  <div class="vox-select-capsule" id="vox-lang-select-capsule">
+                    <!-- Custom Downward Dropdown Trigger -->
+                    <button type="button" class="vox-dropdown-trigger-btn" id="btn-custom-lang-trigger" aria-haspopup="listbox" aria-expanded="false" title="Choose Language">
+                      <span id="custom-lang-label">English</span>
+                      <svg class="vox-dropdown-chevron-down" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </button>
+
+                    <!-- Downward-opening Dropdown Menu with Vertical Scrollbar -->
+                    <div class="vox-custom-dropdown-menu" id="custom-lang-dropdown-menu" role="listbox" style="display: none;">
+                      <div class="vox-custom-opt active" data-lang="en">English</div>
+                      <div class="vox-custom-opt" data-lang="hi">हिन्दी (Hindi)</div>
+                      <div class="vox-custom-opt" data-lang="kn">ಕನ್ನಡ (Kannada)</div>
+                      <div class="vox-custom-opt" data-lang="ta">தமிழ் (Tamil)</div>
+                      <div class="vox-custom-opt" data-lang="te">తెలుగు (Telugu)</div>
+                      <div class="vox-custom-opt" data-lang="ml">മലയാളം (Malayalam)</div>
+                      <div class="vox-custom-opt" data-lang="mr">मराठी (Marathi)</div>
+                      <div class="vox-custom-opt" data-lang="bn">বাংলা (Bengali)</div>
+                      <div class="vox-custom-opt" data-lang="gu">ગુજરાતી (Gujarati)</div>
+                      <div class="vox-custom-opt" data-lang="pa">ਪੰਜਾਬੀ (Punjabi)</div>
+                      <div class="vox-custom-opt" data-lang="or">ଓଡ଼ିଆ (Odia)</div>
+                      <div class="vox-custom-opt" data-lang="as">অসমীয়া (Assamese)</div>
+                      <div class="vox-custom-opt" data-lang="ur">اردو (Urdu)</div>
+                    </div>
+
+                    <!-- Native Select element preserved for screen readers, programmatic sync, and test suites -->
+                    <select id="select-language-pref" class="vox-dropdown-control sr-only-select" aria-label="Select Language">
+                      <option value="en" selected>English</option>
+                      <option value="hi">हिन्दी (Hindi)</option>
+                      <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                      <option value="ta">தமிழ் (Tamil)</option>
+                      <option value="te">తెలుగు (Telugu)</option>
+                      <option value="ml">മലയാളം (Malayalam)</option>
+                      <option value="mr">मराठी (Marathi)</option>
+                      <option value="bn">বাংলা (Bengali)</option>
+                      <option value="gu">ગુજરાતી (Gujarati)</option>
+                      <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                      <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                      <option value="as">অসমীয়া (Assamese)</option>
+                      <option value="ur">اردو (Urdu)</option>
+                    </select>
+                  </div>
+                </div>
+
+                </div>
+
+              <!-- Subview 2: Voice Settings -->
+              <div class="vox-subview" id="subview-voice">
+                
+                <!-- Setting 1: Voice Feedback -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="voice_fb_label">Spoken Voice Feedback</span>
+                      <span class="vox-setting-desc" data-i18n="voice_fb_desc">Auditory speech synthesis announcements</span>
+                    </div>
+                  </div>
+                  <div class="vox-btn-group-toggle" role="group" aria-label="Spoken Voice Feedback">
+                    <button type="button" class="vox-toggle-btn active" id="btn-voice-fb-enable" data-val="true">Enabled</button>
+                    <button type="button" class="vox-toggle-btn" id="btn-voice-fb-disable" data-val="false">Disabled</button>
+                  </div>
+                  <!-- Compatibility select element kept in DOM for test suite -->
+                  <select id="toggle-voice-feedback" style="display: none;" aria-hidden="true">
+                    <option value="true" selected>Enabled</option>
+                    <option value="false">Disabled</option>
+                  </select>
+                </div>
+
+                <!-- Setting 2: Audio Beeps & Tones -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="audio_beeps_label">Audio Beeps & Tones</span>
+                      <span class="vox-setting-desc" data-i18n="audio_beeps_desc">Auditory pulses during SOS countdown</span>
+                    </div>
+                  </div>
+                  <div class="vox-btn-group-toggle" role="group" aria-label="Audio Beeps and Tones">
+                    <button type="button" class="vox-toggle-btn active" id="btn-audio-fb-enable" data-val="true">Enabled</button>
+                    <button type="button" class="vox-toggle-btn" id="btn-audio-fb-disable" data-val="false">Disabled</button>
+                  </div>
+                  <!-- Compatibility select element kept in DOM for test suite -->
+                  <select id="toggle-audio-feedback" style="display: none;" aria-hidden="true">
+                    <option value="true" selected>Enabled</option>
+                    <option value="false">Disabled</option>
+                  </select>
+                </div>
+
+                <!-- Setting 3: Auto GPS Resolution -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="auto_gps_label">Auto GPS Resolution</span>
+                      <span class="vox-setting-desc" data-i18n="auto_gps_desc">Continuous live GPS tracking</span>
+                    </div>
+                  </div>
+                  <div class="vox-btn-group-toggle" role="group" aria-label="Auto GPS Resolution">
+                    <button type="button" class="vox-toggle-btn active" id="btn-auto-gps-enable" data-val="true">Enabled</button>
+                    <button type="button" class="vox-toggle-btn" id="btn-auto-gps-disable" data-val="false">Disabled</button>
+                  </div>
+                  <!-- Compatibility select element kept in DOM for test suite -->
+                  <select id="toggle-auto-gps" style="display: none;" aria-hidden="true">
+                    <option value="true" selected>Enabled</option>
+                    <option value="false">Manual Query</option>
+                  </select>
+                </div>
+
+                <!-- Setting 4: Test Speech Synthesis Feedback -->
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label">Test Voice Feedback</span>
+                      <span class="vox-setting-desc">Play a sample voice confirmation message</span>
+                    </div>
+                  </div>
+                  <button type="button" id="btn-test-speech" class="vox-pill-action-btn" style="min-width: 130px; height: 36px;">
+                    🔊 Test Speech
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Subview 3: Privacy & Endpoint Settings -->
+              <!-- Requirement 2: Reposition Safety Message BELOW the Save Settings Button -->
+              <div class="vox-subview" id="subview-privacy">
+                <!-- 1. Privacy Settings -->
+                <div class="vox-setting-block">
+                  <label for="input-user-name" class="vox-setting-label" data-i18n="user_name_label">Configured User Name (Emergency Sender)</label>
+                  <input type="text" id="input-user-name" value="Alex Mercer" class="vox-input-field">
+                </div>
+
+                <div class="vox-setting-row">
+                  <div class="vox-setting-meta-wrap">
+                    <div class="vox-setting-texts">
+                      <span class="vox-setting-label" data-i18n="countdown_label">SOS Safety Countdown Window</span>
+                      <span class="vox-setting-desc" data-i18n="countdown_desc">Abort window prior to automatic package dispatch</span>
+                    </div>
+                  </div>
+                  <select id="select-countdown" class="vox-dropdown-control compact">
+                    <option value="3">3 Seconds</option>
+                    <option value="5" selected>5 Seconds</option>
+                    <option value="10">10 Seconds</option>
+                  </select>
+                </div>
+
+                <div class="vox-setting-block">
+                  <label for="input-api-endpoint" class="vox-setting-label" data-i18n="api_label">Flask REST API Endpoint URL</label>
+                  <div class="vox-input-btn-row">
+                    <input type="text" id="input-api-endpoint" value="http://127.0.0.1:5000" class="vox-input-field" style="flex:1;">
+                    <button id="btn-test-api" class="vox-pill-action-btn" data-i18n="btn_test_api">Test API</button>
+                  </div>
+                  <span id="api-endpoint-feedback" class="vox-feedback-hint">Default: http://127.0.0.1:5000 &bull; Flask backend service</span>
+                </div>
+
+                <!-- 2. Save Settings Button -->
+                <button id="btn-save-settings" class="vox-big-blue-button" style="height: 44px; margin-top: 10px;" data-i18n="btn_save">Save Settings</button>
+
+                <!-- 3. "Your Safety Is Our Priority" Message (Positioned IMMEDIATELY BELOW Save Settings button - Requirement 2) -->
+                <div class="vox-safety-bottom-banner" style="margin-top: 14px;">
+                  <div class="vox-safety-banner-left">
+                    <div class="vox-info-circle-badge">ℹ</div>
+                    <div class="vox-safety-banner-texts">
+                      <span class="vox-safety-title" data-i18n="safety_priority">Your safety is our priority!</span>
+                      <span class="vox-safety-sub" data-i18n="safety_thanks">Thank you for using VOXGUARD.</span>
+                    </div>
+                  </div>
+                  <div class="vox-safety-heart-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- ==========================================
+       EMERGENCY SOS OVERLAY & STRUCTURED MESSAGE PREVIEW
+       Phase 4: Structured Notice, Web Share, WhatsApp & Clipboard
+       Auto-Confirmation on Countdown Expiry
+       ========================================== -->
+  <div class="sos-overlay" id="sos-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="sos-dialog-title" aria-describedby="sos-dialog-desc">
+    <div class="sos-modal-card">
+      
+      <!-- Top Header Row: Countdown & Workflow State Badge -->
+      <div class="sos-modal-header-row">
+        <div class="sos-countdown-display" id="sos-countdown-num" aria-live="assertive">5</div>
+        <div class="sos-header-meta">
+          <span class="sos-workflow-pill" id="sos-workflow-badge" data-state="Awaiting confirmation">
+            Awaiting confirmation
+          </span>
+          <span class="sos-alert-id" id="sos-alert-id-tag">ID: ALT-STANDBY</span>
+        </div>
+      </div>
+      
+      <!-- Voice Detected Phrase Banner -->
+      <div id="sos-phrase-alert-banner" class="sos-detected-phrase-callout" style="display: none;">
+        <span>TRIGGER DETECTED:</span>
+        <strong id="sos-detected-phrase-text">"HELP ME"</strong>
+      </div>
+
+      <h2 class="sos-modal-title" id="sos-dialog-title">EMERGENCY SOS NOTICE</h2>
+      <p class="sos-modal-desc" id="sos-dialog-desc">
+        Emergency protocol initiated. Review structured notice below before confirming dispatch.
+      </p>
+
+      <!-- Structured Message Preview Panel -->
+      <div class="sos-preview-panel" id="sos-preview-panel">
+        <div class="preview-panel-header">
+          <span>&#128221; STRUCTURED MESSAGE PREVIEW</span>
+          <span id="preview-panel-gps-status" style="color: #10b981;">&#x25CF; GPS Attached</span>
+        </div>
+        <pre class="preview-message-body" id="sos-message-preview-text">
+EMERGENCY SOS ALERT
+
+Message: I need emergency assistance.
+
+Alert Type: Emergency assistance
+Date and Time: --
+Location: Location unavailable
+Google Maps Link: Location unavailable
+Contact Name: Alex Mercer</pre>
+      </div>
+
+      <!-- Real-time Sharing Status Notice -->
+      <div id="sos-share-feedback" class="sos-share-status-box" style="display: none;">
+        <span id="sos-share-feedback-text">Sharing initiated. Complete send in target application.</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="sos-modal-actions-grid">
+        <button id="btn-modal-share-now" class="btn-sos-action btn-share-web" aria-label="Confirm and share emergency message via Web Share">
+          &#128228; Confirm and Share
+        </button>
+        <button id="btn-modal-whatsapp" class="btn-sos-action btn-share-whatsapp" aria-label="Share emergency message via WhatsApp">
+          &#128172; WhatsApp
+        </button>
+        <button id="btn-modal-copy" class="btn-sos-action btn-copy-msg" aria-label="Copy structured message to clipboard">
+          &#128203; Copy Message
+        </button>
+        <button id="btn-modal-cancel" class="btn-sos-action btn-cancel-alert" aria-label="Cancel emergency alert immediately">
+          &#10006; Cancel Alert (Esc)
+        </button>
+      </div>
+
+      <div class="sos-safety-disclaimer">
+        Safety Notice: No emergency services are contacted automatically. User confirmation or countdown completion is required before transmission.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       EMERGENCY CONTACT MODAL (ADD & EDIT)
+       Validation, Duplicate Prevention & Local Persistence
+       ========================================== -->
+  <div class="contact-modal-overlay" id="contact-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-describedby="contact-modal-desc">
+    <div class="contact-modal-card">
+      <div class="contact-modal-header">
+        <div class="contact-modal-titles">
+          <h2 class="contact-modal-title" id="contact-modal-title">Add Emergency Contact</h2>
+          <p class="contact-modal-desc" id="contact-modal-desc">Configure an authorized contact for emergency notification.</p>
+        </div>
+        <button id="btn-close-contact-modal" class="btn-close-modal" aria-label="Close contact dialog" title="Close">&times;</button>
+      </div>
+
+      <!-- Inline Validation Error Banner -->
+      <div id="contact-form-errors" class="contact-form-errors-box" role="alert" style="display: none;"></div>
+
+      <form id="contact-form" class="contact-form-body" novalidate onsubmit="return false;">
+        <input type="hidden" id="contact-edit-id" value="">
+
+        <div class="contact-form-group">
+          <label for="input-contact-name">Contact / Agency Name <span class="required-star" aria-hidden="true">*</span></label>
+          <input type="text" id="input-contact-name" class="contact-text-input" placeholder="e.g. Mom or Dr. Jane Smith" required autocomplete="name">
+          <span class="field-hint">Min 2, max 60 characters.</span>
+        </div>
+
+        <div class="contact-form-group">
+          <label for="input-contact-phone">Phone Number / Shortcode <span class="required-star" aria-hidden="true">*</span></label>
+          <input type="tel" id="input-contact-phone" class="contact-text-input" placeholder="e.g. +91 98765 43210 or 112" required autocomplete="tel">
+          <span class="field-hint">Min 3 digits (e.g. 112, 911), max 16 digits.</span>
+        </div>
+
+        <div class="contact-form-group">
+          <label for="input-contact-relationship">Relationship / Service Type <span class="required-star" aria-hidden="true">*</span></label>
+          <input type="text" id="input-contact-relationship" class="contact-text-input" placeholder="e.g. Family, Police, Hospital" required>
+          <span class="field-hint">e.g. Family / ICE, Physician (max 40 chars).</span>
+        </div>
+
+        <div class="contact-form-group-checkbox">
+          <label class="checkbox-label" for="check-contact-primary">
+            <input type="checkbox" id="check-contact-primary">
+            <span>Designate as Primary ICE (In Case of Emergency) Contact</span>
+          </label>
+        </div>
+
+        <div class="contact-modal-actions">
+          <button type="submit" id="btn-save-contact" class="vox-big-blue-button" style="height: 44px;">
+            Save Contact
+          </button>
+          <button type="button" id="btn-cancel-contact" class="vox-btn-cancel-modal">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modular Scripts Loading in Explicit Dependency Order -->
+  <script src="js/storage.js"></script>
+  <script src="js/location.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/sos.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

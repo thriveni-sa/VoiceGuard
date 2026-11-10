@@ -1,0 +1,85 @@
+<USER_REQUEST>
+gsd-# VOICEGUARD – BUG FIXING AND FUNCTIONALITY COMPLETION
+
+I have already developed the VoiceGuard application through Phase 5. However, I am facing several functional issues. I want you to carefully inspect my entire existing project, identify the root causes, and fix all the issues listed below.
+
+**IMPORTANT INSTRUCTIONS:**
+- Do NOT create a new project.
+- Do NOT delete or unnecessarily rewrite existing files.
+- Do NOT change the existing UI design, layout, colors, typography, or styling.
+- Preserve the current design references and UI/UX screenshots I previously provided.
+- Fix the actual functionality, not just the visual appearance.
+- Maintain compatibility with the existing technology stack and project architecture.
+- Check the frontend, backend, APIs, database, and browser console wherever necessary.
+- Do not introduce duplicate functions or unnecessary dependencies.
+
+## 1. Fix Forward and Backward Navigation
+
+Currently, the forward and backward navigation buttons are not working properly.
+
+Requirements:
+- Make the Back button navigate to the previous appropriate page.
+- Make the Forward button navigate to the next appropriate page where applicable.
+- Ensure browser history navigation works correctly.
+- Prevent navigation buttons from becoming unresponsive.
+- Handle cases where there is no previous or next page.
+- Ensure navigation does not unnecessarily reload the entire application.
+
+## 2. Fix Current Location Tracking
+
+Currently, the application is not tracking the user's current location properly.
+
+Requirements:
+- Implement proper browser Geolocation API functionality.
+- Request location permission from the user.
+- Retrieve the actual current latitude and longitude.
+- Display the current location correctly in the existing location section.
+- Update the location when the user moves.
+- Handle location permission denial, unavailable GPS, timeout, and network errors.
+- Display a meaningful message when location access is unavailable.
+- Do not display 
+<truncated 5172 bytes>
+ency contacts integration.
+- SOS countdown.
+- SOS cancellation.
+- Emergency location sharing.
+- Theme switching.
+- Theme persistence after refresh.
+- Notification permissions.
+- Notification delivery.
+- API and backend connectivity.
+- Responsive UI on desktop and mobile.
+
+## FINAL REQUIREMENTS
+
+1. First inspect the complete existing project.
+2. Identify the root cause of every issue.
+3. Fix the issues systematically.
+4. Preserve the existing UI/UX design.
+5. Reuse existing functions and components wherever possible.
+6. Ensure frontend and backend communicate correctly.
+7. Do not use mock data or hardcoded success messages.
+8. Do not leave unfinished buttons or nonfunctional features.
+9. Run the application and check for console errors and backend errors.
+10. Provide a final report listing:
+   - Issues identified.
+   - Files modified.
+   - Fixes implemented.
+   - Features successfully tested.
+   - Any remaining configuration or external service requirements.
+
+**MOST IMPORTANT:** I need a fully functional VoiceGuard application, not just a visually attractive interface. Every existing button and feature must work as intended. Preserve my existing design and focus on fixing functionality and integrating all features correctly.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-31T20:01:54+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\app.py (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 199
+Other open documents:
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\css\style.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\js\location.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\index.html (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

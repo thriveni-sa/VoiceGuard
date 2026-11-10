@@ -1,0 +1,320 @@
+<USER_REQUEST>
+gsd-# VOXGUARD APPLICATION — COMPLETE BUG FIXES AND UI/UX IMPROVEMENTS
+
+Act as a senior full-stack developer, UI/UX designer, frontend engineer, backend engineer, and QA tester.
+
+I am developing an application called VOXGUARD. During testing, I identified multiple UI problems, non-functional buttons, incorrect navigation, language support issues, and emergency alert bugs.
+
+Your task is to inspect the existing project, identify the root cause of every issue listed below, implement the necessary fixes, and test the results.
+
+IMPORTANT:
+- Do not rebuild the application from scratch.
+- Do not remove existing features simply because they are broken.
+- Preserve the existing technology stack, architecture, database, API contracts, and application branding.
+- Make changes directly to the existing project files.
+- Do not replace real functionality with static UI or fake data.
+- Ensure the application works on laptops, desktops, tablets, and mobile devices.
+- Do not claim that something works unless you have verified it.
+
+# 1. SETTINGS — ADD INDIAN LANGUAGES
+
+The Settings page needs support for Indian languages, and language selection must work throughout the application.
+
+Implement language selection for the following languages, where translations can be provided and verified:
+
+- English
+- Hindi
+- Kannada
+- Tamil
+- Telugu
+- Malayalam
+- Marathi
+- Bengali
+- Gujarati
+- Punjabi
+- Odia
+- Assamese
+- Urdu
+
+Requirements:
+
+1. Inspect the existing language selector and internationalization implementation.
+2. Add the supported Indian languages to the selector.
+3. Ensure selecting a language updates the application's interface text.
+4. Apply translations consistently across the Dashboard, Settings, Emergency Contacts, History, navigation, forms, and notifications.
+5. Preserve the selected language when navigating between pages.
+6. Persist the language preference across refreshes using the application's existing settings mechanism.
+7. Provide a fallback to English for missing translations.
+8. Ensure language names are displayed clearly and correctly.
+9. Support appropriate text direction for Urdu if it is implemented.
+10. Ensure fonts correctly render Indian scripts without missing characters or broken text.
+11. Avoid hardcoded English strings in components that should use translations.
+
+Do not merely add language names to the dropdown. Implement the actual language-switching functionality.
+
+If complete translations are unavailable, identify the missing translation keys and do not claim full support until they have been implemented and checked.
+
+# 2. SETTINGS — REPOSITION THE SAFETY MESSAGE
+
+In the Settings page, under the Privacy section, the message "Your Safety Is Our Priority" must appear below the "Save Settings" button.
+
+Requirements:
+
+- Locate the Privacy section and the existing safety message.
+- Position the safety message immediately after the Save Settings button.
+- Preserve the message and any associated icon.
+- Maintain appropriate spacing and alignment.
+- Ensure the message does not overlap other elements.
+- Ensure the layout remains correct at different screen sizes.
+- Preserve the existing save functionality.
+- Do not duplicate the safety message if it already exists elsewhere on the page.
+
+The final order should be:
+
+1. Privacy settings.
+2. Save Settings button.
+3. "Your Safety Is Our Priority" message.
+
+# 3. FULL-SCREEN UI — FIX ICON SIZING AND ALIGNMENT
+
+Icons are not displaying correctly when the application is viewed in full-screen mode.
+
+Fix the icon sizing, alignment, spacing, and visual consistency throughout the application.
+
+Requirements:
+
+- Inspect icons in the Dashboard, Settings, navigation, Emergency Contacts, and History.
+- Ensure icons are properly aligned with their labels.
+- Prevent icons from becoming too small or too large on full-screen displays.
+- Preserve the intended icon proportions and aspect ratios.
+- Use consistent icon sizes for similar controls.
+- Ensure icons remain vertically and horizontally centered.
+- Prevent clipping, overlapping, stretching, and unexpected shifts.
+- Ensure icons remain visually balanced on large laptop and desktop displays.
+- Maintain appropriate sizes on smaller screens.
+- Use the existing icon library where possible.
+- Avoid replacing icons with emojis or unrelated symbols.
+
+Use responsive CSS sizing where appropriate, but do not allow icons to shrink excessively on large screens.
+
+Verify the appearance in both browser full-screen mode and normal window mode.
+
+# 4. DASHBOARD — CORRECT THE COMPONENT ORDER
+
+The Dashboard components are not arranged in the correct order.
+
+Inspect the existing Dashboard structure and reorganize its components into a clear, logical hierarchy.
+
+Requirements:
+
+- Place navigation in a consistent location.
+- Keep the main dashboard content visually prominent.
+- Group related information and actions together.
+- Maintain logical reading order.
+- Ensure cards and status indicators are positioned consistently.
+- Preserve all existing functionality.
+- Avoid unnecessary duplication of controls.
+- Ensure the layout works on both desktop and mobile.
+- Avoid overlapping content and inconsistent spacing.
+
+Do not arbitrarily reorder components without inspecting the existing design and understanding their purpose.
+
+# 5. DASHBOARD — FIX DARK MODE AND LIGHT MODE
+
+The Dark/Light theme functionality is not working properly.
+
+Investigate and fix the complete theme implementation.
+
+Requirements:
+
+- Make the theme toggle functional.
+- Clicking the toggle must switch between light and dark themes.
+- Update the entire interface, including the Dashboard, Settings, navigation, cards, buttons, forms, dialogs, icons, and text.
+- Ensure text and background colors remain readable.
+- Correct components that continue displaying the old theme.
+- Synchronize theme state across all pages.
+- Persist the selected theme across refreshes if supported by the existing architecture.
+- Ensure the toggle reflects the actual active theme.
+- Remove conflicting CSS rules that prevent theme changes.
+- Avoid maintaining separate, unsynchronized theme states in individual components.
+
+Test both themes on every major page.
+
+# 6. DASHBOARD — MOVE NAVIGATION BUTTONS TO THE TOP-LEFT
+
+The Dashboard, Contacts, History, and Settings navigation buttons must be positioned vertically in the top-left corner.
+
+Requirements:
+
+- Position the navigation buttons on the left side near the top of the application.
+- Arrange them vertically.
+- Maintain consistent spacing between buttons.
+- Make the navigation visually clear and professional.
+- Highlight the currently active page.
+- Preserve existing routes and click handlers.
+- Ensure the navigation does not cover the dashboard content.
+- Use appropriate desktop and mobile layouts.
+- Avoid creating duplicate navigation buttons.
+
+The intended desktop structure should resemble a left-side navigation area with the main content displayed to its right.
+
+On smaller screens, adapt the layout without introducing horizontal overflow.
+
+# 7. DASHBOARD — FIX ICONS IN FULL-SCREEN MODE
+
+Dashboard icons are not properly sized or positioned in full-screen mode.
+
+Requirements:
+
+- Inspect all dashboard icons.
+- Correct their dimensions, alignment, and spacing.
+- Ensure icons are not clipped or distorted.
+- Keep icon sizes consistent across related cards and controls.
+- Make icons visible and appropriately sized on large screens.
+- Prevent flexbox or grid layouts from shrinking icons unexpectedly.
+- Use appropriate `flex-shrink`, `min-width`, and alignment rules when necessary.
+- Preserve the icon's original meaning and functionality.
+
+Do not solve this problem by globally increasing every icon size. Determine the appropriate size for each icon's context.
+
+# 8. DASHBOARD — CORRECT FONT SIZES
+
+The current font sizes do not look appropriate.
+
+Requirements:
+
+- Use a consistent typography system throughout the application.
+- Set normal interface text to a comfortable medium size.
+- Establish clear differences between page titles, section headings, labels, body text, and secondary information.
+- Ensure text is readable at common laptop resolutions.
+- Prevent headings from appearing excessively large.
+- Prevent body text from becoming too small.
+- Ensure button labels fit without clipping.
+- Support Indian languages and their different character widths.
+- Use responsive typography where necessary.
+
+Do not shrink all text simply to fit more content into the viewport.
+
+Prioritize readability and a consistent visual hierarchy.
+
+# 9. VOXGUARD — IMPROVE THE BRAND TAGLINE
+
+The current tagline "Your Voice, Your Safety" beneath the VOXGUARD branding does not adequately communicate the project's purpose.
+
+Replace it with a concise tagline that better reflects a personal safety and emergency assistance application.
+
+Preferred tagline:
+
+"Your Safety. Your Voice. Your Lifeline."
+
+Requirements:
+
+- Place the tagline beneath the VOXGUARD logo or application name.
+- Use a professional and readable font.
+- Maintain appropriate spacing and alignment.
+- Ensure the tagline fits on desktop and mobile screens.
+- Ensure it displays correctly in light and dark themes.
+- Preserve the VOXGUARD identity.
+
+Use the preferred tagline unless the existing design requires a similarly concise alternative.
+
+# 10. DASHBOARD — FIX READY STATUS AND API ONLINE STATUS
+
+The Ready status and API Online indicators are not functioning correctly.
+
+Inspect their existing implementations and determine whether they are connected to real application state.
+
+Requirements:
+
+- Ensure the Ready status accurately reflects the application's actual readiness.
+- Ensure API Online reflects the real backend health.
+- Use an existing health-check endpoint if one is available.
+- Handle loading, online, offline, and unknown states appropriately.
+- Update the visual indicators when their underlying states change.
+- Avoid displaying a permanently green status when the backend is unavailable.
+- Display clear status labels and accessible visual indicators.
+- Avoid excessive API polling.
+- Clean up timers and listeners appropriately.
+
+If a status indicator has no useful purpose and cannot be supported by the application, remove it only after explaining why it is unnecessary.
+
+Prefer making the existing indicator functional rather than removing it.
+
+# 11. EMERGENCY CONTACTS — FIX THE SET PRIMARY OPTION
+
+The "Set Primary" option in Emergency Contacts is not working properly.
+
+Investigate the contact data model, UI event handlers, and persistence mechanism.
+
+Requirements:
+
+1. Allow the user to select an existing contact as the primary emergency contact.
+2. Save the selection using the existing backend or persistence mechanism.
+3. Update the UI immediately after a successful operation.
+4. Clearly identify the selected primary contact.
+5. Ensure only one contact is primary at a time, unless the existing data model explicitly supports a different arrangement.
+6. When another contact is selected as primary, update the previous primary contact accordingly.
+7. Preserve the selection after refreshing the page.
+8. Handle API failures and display an appropriate error message.
+9. Prevent invalid or duplicate requests.
+10. Ensure that deleting a primary contact does not leave the application in an inconsistent state.
+
+Do not display a contact as primary unless the change has actually been saved successfully.
+
+If the backend does not currently support primary-contact selection, implement the required change using the existing architecture and document any necessary database or API changes.
+
+# 12. HISTORY — RENAME EMERGENCY HISTORY
+
+Rename the "Emergency History" section to simply "History".
+
+Requirements:
+
+- Update the page title.
+- Update the corresponding navigation label.
+- Update relevant headings and breadcrumbs.
+- Update any related interface labels.
+- Preserve the existing history data and functionality.
+- Do not rename unrelated database tables or API endpoints unnecessarily.
+- Ensure the new label is used consistently across supported languages.
+
+# 13. HISTORY — FIX FALSE SUCCESSFUL ALERT RECORDS
+
+Currently, an emergency alert can appear in History even when the alert was not successfully sent.
+
+This must be corrected.
+
+Inspect the entire alert lifecycle, including:
+- SOS button interactions.
+- Confirmation and cancellation logic.
+- Frontend API requests.
+- Backend alert processing.
+- Notification delivery.
+- Database persistence.
+- History retrieval and display.
+
+Required behavior:
+
+1. An alert must not be marked as successfully sent merely because the SOS button was clicked.
+2. Record an alert as successfully sent only when the backend confirms the relevant operation succeeded.
+3. Distinguish between pending, sending, sent, failed, and canceled states where appropriate.
+4. Display the actual alert status in History.
+5. If an alert fails, record the failure status when appropriate and supported by the application's design.
+6. If the user cancels an alert before it is sent, do not display it as successfully sent.
+7. Prevent duplicate history entries caused by repeated clicks or retries.
+8. Ensure the frontend and backend agree on alert status.
+9. Preserve timestamps and other existing history information.
+10. Handle network failures
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-31T14:50:29+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\app.py (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 18
+Other open documents:
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\css\style.css (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\backend\README.md (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\js\location.js (LANGUAGE_UNSPECIFIED)
+- c:\Users\Thriveni S A\OneDrive\Desktop\VOICEGUARD\frontend\index.html (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

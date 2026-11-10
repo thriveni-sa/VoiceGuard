@@ -1,0 +1,3936 @@
+/**
+ * VOXGUARD - Master Stylesheet
+ * Team: SUPREME | IEEE Computer Society Hackathon
+ * Redesigned Prototype matching 4 Official Reference Mockups
+ * Strict 100vh constraint - Zero page-level scrollbars
+ */
+
+/* ==========================================================================
+   1. CSS Variables & Design Tokens (Light Blue, White, Navy & Red Glow)
+   ========================================================================== */
+:root {
+  /* VOXGUARD Light Blue & Crisp White Palette */
+  --bg-app: #edf5fd;
+  --bg-gradient: radial-gradient(circle at 10% 0%, #e1effe 0%, transparent 40%), radial-gradient(circle at 90% 100%, #dbeafe 0%, transparent 40%), #edf5fd;
+  --card-bg: #ffffff;
+  --card-border: #e2ecf8;
+  --card-border-subtle: #edf2f7;
+  
+  /* Brand Typography & Navy Shades */
+  --navy-dark: #0f172a;
+  --navy-heading: #0f224a;
+  --navy-body: #1e293b;
+  --slate-sub: #64748b;
+  --slate-muted: #94a3b8;
+  --blue-primary: #2563eb;
+  --blue-hover: #1d4ed8;
+  --blue-light-bg: #eff6ff;
+  --blue-soft-pill: #dbeafe;
+  --blue-border: #bfdbfe;
+
+  /* Emergency Red Capsule & Aura Glow */
+  --red-emergency: #ef4444;
+  --red-dark: #dc2626;
+  --red-deep: #b91c1c;
+  --red-soft-bg: #fee2e2;
+  --red-glow: 0 0 35px rgba(239, 68, 68, 0.45), 0 8px 24px rgba(220, 38, 38, 0.35);
+
+  /* Status Colors */
+  --status-ready: #10b981;
+  --status-ready-bg: #dcfce7;
+  --status-ready-text: #15803d;
+  --status-alert: #ef4444;
+
+  /* Focus & Accessibility */
+  --focus-ring: #2563eb;
+  --focus-outline-width: 3px;
+
+  /* Metrics & Dimensions */
+  --header-height: 52px;
+  --bottom-nav-height: 62px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 4px 20px rgba(37, 99, 235, 0.05);
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* High Contrast Mode Overrides */
+body.high-contrast-mode {
+  --bg-app: #000000;
+  --bg-gradient: #000000;
+  --card-bg: #090e1a;
+  --card-border: #3b82f6;
+  --card-border-subtle: #1e3a8a;
+  --navy-dark: #ffffff;
+  --navy-heading: #ffffff;
+  --navy-body: #f8fafc;
+  --slate-sub: #cbd5e1;
+  --slate-muted: #e2e8f0;
+  --blue-primary: #38bdf8;
+  --blue-light-bg: #0f172a;
+  --blue-soft-pill: #1e293b;
+  --blue-border: #38bdf8;
+  --focus-ring: #ffff00;
+}
+
+/* ==========================================================================
+   2. Reset & Strict Viewport Baseline (Zero Scrollbars - 100vh)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden !important; /* Strict 100vh restriction */
+  background: var(--bg-gradient);
+  background-color: var(--bg-app);
+  color: var(--navy-body);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Devanagari", "Noto Sans Kannada", "Noto Sans Tamil", "Noto Sans Telugu", "Noto Sans Malayalam", "Noto Sans Bengali", "Noto Sans Gujarati", "Noto Sans Gurmukhi", "Noto Sans Oriya", "Noto Nastaliq Urdu", sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  user-select: none;
+}
+
+/* Screen Reader Skip Navigation Link */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 14px;
+  background: var(--blue-primary);
+  color: #fff;
+  padding: 8px 14px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  z-index: 9999;
+  transition: top var(--transition-fast);
+  text-decoration: none;
+}
+/* Screen Reader Only Utility (Strict Zero-Leak Accessibility) */
+.sr-only,
+#sr-announcer {
+  position: fixed !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.skip-link:focus {
+  top: 12px;
+  outline: var(--focus-outline-width) solid var(--focus-ring);
+}
+
+/* Universal Keyboard Accessibility Focus Ring */
+:focus-visible {
+  outline: var(--focus-outline-width) solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+}
+
+button, a, input, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+/* ==========================================================================
+   3. Application Shell & Header (Fullscreen Optimized - Requirements 1, 2, 3)
+   ========================================================================== */
+.app-shell {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: radial-gradient(circle at 10% 20%, #1e293b 0%, transparent 40%), radial-gradient(circle at 90% 10%, #1e1b4b 0%, transparent 45%), radial-gradient(circle at 80% 90%, #172554 0%, transparent 50%), #0f172a;
+  padding: 12px 16px;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Left Sidebar Navigation (Desktop Fixed 240px)
+   ========================================================================== */
+.vox-sidebar {
+  width: 240px;
+  min-width: 240px;
+  max-width: 240px;
+  height: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  padding: 18px 14px;
+  gap: 14px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 40;
+}
+
+.vox-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding-bottom: 4px;
+}
+
+.vox-sidebar-brand .vox-shield-logo {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-sidebar-brand .vox-brand-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vox-sidebar-brand .vox-app-title {
+  font-size: 1.38rem;
+  font-weight: 850;
+  color: var(--navy-heading);
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+}
+
+.vox-sidebar-brand .vox-app-subtitle {
+  font-size: 0.68rem;
+  font-weight: 650;
+  color: #1d4ed8;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Separate, Non-Overlapping Back / Forward Controls (Requirement 3) */
+.vox-history-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 2px 0 4px 0;
+}
+
+.nav-history-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: var(--radius-sm);
+  background: var(--blue-light-bg);
+  border: 1px solid var(--blue-border);
+  color: var(--navy-body);
+  font-size: 0.8rem;
+  font-weight: 650;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-history-btn:hover:not(:disabled) {
+  background: var(--blue-primary);
+  color: #ffffff;
+  border-color: var(--blue-primary);
+}
+
+.nav-history-btn:disabled,
+.nav-history-btn.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.03);
+  border-color: var(--card-border);
+  color: var(--slate-muted);
+}
+
+/* Vertically Stacked Navigation Items (Requirement 3 & 6) */
+.vox-vertical-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+}
+
+.vox-vertical-nav-items .nav-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--slate-sub);
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+}
+
+.vox-vertical-nav-items .nav-item-btn:hover {
+  background: var(--blue-light-bg);
+  color: var(--blue-primary);
+}
+
+.vox-vertical-nav-items .nav-item-btn.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+}
+
+.vox-vertical-nav-items .nav-item-btn svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.vox-vertical-nav-items .nav-item-btn .vox-nav-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vox-sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--card-border-subtle);
+  flex-shrink: 0;
+}
+
+.vox-sidebar-version {
+  font-size: 0.68rem;
+  color: var(--slate-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Main Content Area & Top Header (Requirements 1, 10, 11)
+   ========================================================================== */
+.vox-content-area {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  gap: 8px;
+}
+
+.vox-header {
+  height: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  flex-shrink: 0;
+  z-index: 30;
+}
+
+.vox-header-status-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vox-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vox-circle-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  color: var(--slate-sub);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vox-circle-icon-btn:hover {
+  background: var(--blue-light-bg);
+  color: var(--blue-primary);
+  border-color: var(--blue-border);
+  transform: translateY(-1px);
+}
+
+.vox-circle-icon-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.vox-main-content,
+.vox-main-viewport {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding: 2px 2px 8px 2px;
+}
+
+/* System Ready Pill Badge (Image 1 top right) */
+.vox-system-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--status-ready-bg);
+  color: var(--status-ready-text);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 650;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.vox-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+/* Flask REST API Status Badge */
+.api-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--blue-primary);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.api-status-pill.online {
+  background: #ecfdf5;
+  color: #059669;
+}
+.api-status-pill.offline {
+  background: #fef2f2;
+  color: #dc2626;
+}
+.api-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Circular Icon Buttons (Settings & Contrast) */
+.vox-circle-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e2ecf9;
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.vox-circle-icon-btn:hover {
+  background: #d4e4f7;
+  transform: scale(1.04);
+}
+.vox-circle-icon-btn:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   4. Main Content Viewport & Tab Panels
+   ========================================================================== */
+.vox-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 16px 10px 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tab-panel {
+  display: none;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  animation: fadeIn 200ms ease-out;
+}
+
+.tab-panel.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   5. Screen 1: Dashboard View Layout
+   ========================================================================== */
+.vox-view-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* 5.1 Voice Assistant Hero Card (Image 1 top card) */
+.vox-hero-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.vox-hero-left {
+  display: flex;
+  flex-direction: column;
+  max-width: 62%;
+  z-index: 2;
+}
+
+.vox-hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.vox-sound-wave-icon {
+  display: flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 16px;
+}
+.vox-sound-wave-icon span {
+  width: 3px;
+  background: var(--blue-primary);
+  border-radius: 2px;
+}
+.vox-sound-wave-icon span:nth-child(1) { height: 8px; }
+.vox-sound-wave-icon span:nth-child(2) { height: 16px; }
+.vox-sound-wave-icon span:nth-child(3) { height: 11px; }
+.vox-sound-wave-icon span:nth-child(4) { height: 6px; }
+
+.vox-hero-badge-title {
+  color: var(--blue-primary);
+  font-weight: 700;
+  font-size: 0.94rem;
+}
+
+.vox-hero-heading {
+  font-size: 1.68rem;
+  font-weight: 850;
+  color: var(--navy-heading);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-top: 2px;
+}
+
+.vox-hero-sub {
+  font-size: 0.84rem;
+  color: var(--slate-sub);
+  margin-bottom: 12px;
+}
+
+/* Pill Activation Button inside Hero Card */
+.vox-mic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #a7f3d0;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.16);
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  cursor: pointer;
+  color: #047857;
+  font-weight: 650;
+  font-size: 0.8rem;
+  width: fit-content;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.vox-mic-pill:hover {
+  transform: translateY(-1px);
+  border-color: #34d399;
+}
+.vox-mic-pill.listening {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.vox-mic-pill-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-mic-pill-divider {
+  color: #cbd5e1;
+  font-weight: 300;
+}
+
+.vox-pill-wave-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+.vox-pill-wave-bars span {
+  width: 2px;
+  height: 10px;
+  background: #34d399;
+  border-radius: 1px;
+}
+.vox-mic-pill.listening .vox-pill-wave-bars span {
+  animation: waveBarBounce 700ms ease-in-out infinite alternate;
+}
+.vox-mic-pill.listening .vox-pill-wave-bars span:nth-child(2) { animation-delay: 100ms; }
+.vox-mic-pill.listening .vox-pill-wave-bars span:nth-child(3) { animation-delay: 200ms; }
+.vox-mic-pill.listening .vox-pill-wave-bars span:nth-child(4) { animation-delay: 300ms; }
+.vox-mic-pill.listening .vox-pill-wave-bars span:nth-child(5) { animation-delay: 400ms; }
+.vox-mic-pill.listening .vox-pill-wave-bars span:nth-child(6) { animation-delay: 500ms; }
+
+@keyframes waveBarBounce {
+  0% { height: 4px; }
+  100% { height: 14px; }
+}
+
+/* 5.1b Voice Trigger Quick Guide Chips (Requirement 6) */
+.vox-trigger-chips-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.vox-chips-prefix {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--slate-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.phrase-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--blue-primary);
+  background: var(--blue-light-bg);
+  border: 1px solid var(--blue-border);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.phrase-tag:hover {
+  background: var(--blue-primary);
+  color: #ffffff;
+  border-color: var(--blue-primary);
+  transform: translateY(-1px);
+}
+
+.phrase-tag.matched {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+/* 5.2 Concentric Ripple Microphone Button (Hero Right) */
+.vox-hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+.vox-concentric-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.vox-ring.ring-outer {
+  width: 136px;
+  height: 136px;
+  background: rgba(219, 234, 254, 0.45);
+}
+.vox-ring.ring-middle {
+  width: 106px;
+  height: 106px;
+  background: rgba(191, 219, 254, 0.55);
+}
+
+.vox-center-mic-btn {
+  position: relative;
+  z-index: 5;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.vox-center-mic-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.48);
+}
+.vox-center-mic-btn:active {
+  transform: scale(0.96);
+}
+.vox-center-mic-btn.active-listening {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+  animation: pulseListenRing 1.6s infinite ease-out;
+}
+
+@keyframes pulseListenRing {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.vox-sound-arcs {
+  position: absolute;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+}
+.vox-sound-arcs span {
+  display: block;
+  border-right: 2.5px solid #93c5fa;
+  border-radius: 50%;
+  width: 16px;
+  height: 28px;
+}
+
+/* 5.3 Middle Row Grid (Live Location + Emergency Contacts) */
+.vox-dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+
+.vox-grid-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 13px 15px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vox-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.vox-head-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-icon-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vox-icon-badge.blue {
+  background: #dbeafe;
+  color: var(--blue-primary);
+}
+.vox-icon-badge.purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.vox-card-title {
+  font-size: 1.06rem;
+  font-weight: 750;
+  color: var(--navy-heading);
+}
+
+.vox-card-chevron {
+  color: var(--slate-muted);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Live Location Details */
+.vox-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.vox-loc-pill-status {
+  margin-bottom: 6px;
+}
+
+.location-state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--status-ready-bg);
+  color: var(--status-ready-text);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.vox-coords-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue-light-bg);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  margin: 4px 0 8px 0;
+  transition: all var(--transition-fast);
+}
+.vox-pin-emoji {
+  font-size: 0.85rem;
+}
+.vox-coords-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--navy-heading);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vox-loc-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vox-btn-pill-maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.77rem;
+  font-weight: 650;
+  color: var(--navy-body);
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+.vox-btn-pill-maps:hover {
+  background: #e2e8f0;
+}
+.vox-arrow-diagonal {
+  font-weight: 700;
+  color: var(--blue-primary);
+}
+
+.vox-btn-pill-action {
+  background: #eff6ff;
+  border: 1px solid var(--blue-border);
+  color: var(--blue-primary);
+  border-radius: var(--radius-full);
+  padding: 5px 9px;
+  font-size: 0.74rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.vox-btn-pill-action:hover {
+  background: #dbeafe;
+}
+
+/* Emergency Contacts Mini Summary (Card 3 in Dashboard) */
+.vox-sub-count-tag {
+  font-size: 0.78rem;
+  color: var(--slate-sub);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.vox-mini-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.vox-mini-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  transition: all var(--transition-fast);
+}
+.vox-mini-contact-row:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.vox-mini-contact-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+.vox-mini-avatar-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: var(--blue-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.vox-mini-name {
+  font-weight: 700;
+  color: var(--navy-heading);
+}
+.vox-mini-phone {
+  color: var(--slate-sub);
+  white-space: nowrap;
+}
+.vox-mini-del-btn {
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+}
+.vox-mini-del-btn:hover {
+  color: var(--red-emergency);
+}
+
+.vox-contacts-footer-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.vox-btn-pill-manage {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #eff6ff;
+  border: 1px solid var(--blue-border);
+  color: #1d4ed8;
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.vox-btn-pill-manage:hover {
+  background: #dbeafe;
+}
+
+/* 5.4 Giant Glowing EMERGENCY SOS Capsule (Image 1 bottom card) */
+.vox-sos-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.vox-giant-sos-btn {
+  background: linear-gradient(90deg, #f87171 0%, #ef4444 30%, #dc2626 70%, #b91c1c 100%);
+  border-radius: var(--radius-full);
+  height: 68px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: var(--red-glow);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.vox-giant-sos-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 45px rgba(239, 68, 68, 0.65), 0 10px 28px rgba(220, 38, 38, 0.45);
+}
+.vox-giant-sos-btn:active {
+  transform: scale(0.98);
+}
+
+.vox-sos-beacon-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-sos-sep {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.6rem;
+  font-weight: 300;
+}
+
+.vox-sos-meta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vox-sos-main-txt {
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.vox-sos-sub-txt {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* Radiating Sparks outside SOS capsule (Image 1) */
+.vox-sos-sparks {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+.vox-sos-sparks.left {
+  left: -12px;
+}
+.vox-sos-sparks.right {
+  right: -12px;
+}
+.vox-sos-sparks span {
+  width: 12px;
+  height: 3px;
+  background: #f87171;
+  border-radius: 2px;
+}
+.vox-sos-sparks.left span:nth-child(1) { transform: rotate(-25deg); }
+.vox-sos-sparks.left span:nth-child(2) { transform: rotate(0deg); width: 14px; }
+.vox-sos-sparks.left span:nth-child(3) { transform: rotate(25deg); }
+.vox-sos-sparks.right span:nth-child(1) { transform: rotate(25deg); }
+.vox-sos-sparks.right span:nth-child(2) { transform: rotate(0deg); width: 14px; }
+.vox-sos-sparks.right span:nth-child(3) { transform: rotate(-25deg); }
+
+/* ==========================================================================
+   6. Screen 2: Emergency Contacts View (Matches Image 2)
+   ========================================================================== */
+.vox-full-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.vox-card-title-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.vox-title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vox-icon-box {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vox-icon-box.big {
+  width: 44px;
+  height: 44px;
+}
+.vox-icon-box.purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.vox-icon-box.blue {
+  background: #dbeafe;
+  color: var(--blue-primary);
+}
+
+.vox-header-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.vox-heading-large {
+  font-size: 1.55rem;
+  font-weight: 850;
+  color: var(--navy-heading);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.vox-subtitle-desc {
+  font-size: 0.96rem;
+  color: var(--slate-sub);
+}
+
+.vox-blue-pill-count {
+  background: var(--blue-soft-pill);
+  color: #1d4ed8;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-weight: 750;
+  font-size: 0.84rem;
+}
+
+/* Scrollable Contacts List */
+.vox-contacts-scroll-area {
+  flex: 0 1 auto;
+  overflow-y: auto;
+  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: calc(100vh - 220px);
+  max-height: calc(100dvh - 220px);
+  scrollbar-width: none;
+}
+.vox-contacts-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual Contact Card (Image 2) */
+.vox-contact-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+.vox-contact-card:hover {
+  border-color: var(--blue-border);
+}
+
+.vox-contact-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vox-contact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+.vox-contact-avatar.avatar-blue {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+}
+.vox-contact-avatar.avatar-purple {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  color: #6b21a8;
+}
+
+.vox-contact-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vox-contact-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vox-contact-name {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--navy-heading);
+}
+
+.vox-ice-tag {
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.vox-contact-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.vox-phone-icon {
+  color: var(--blue-primary);
+}
+
+.vox-contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-round-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+.vox-round-action-btn:hover {
+  transform: scale(1.08);
+}
+.vox-round-action-btn.edit {
+  background: #dbeafe;
+  color: var(--blue-primary);
+}
+.vox-round-action-btn.delete {
+  background: var(--red-soft-bg);
+  color: var(--red-emergency);
+}
+
+/* Big Blue Action Button: + Add Contact */
+.vox-big-blue-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  height: 48px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.vox-big-blue-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+.plus-sign {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   7. Screen 3: Emergency History View (Matches Image 3)
+   ========================================================================== */
+.vox-pill-action-btn {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid var(--blue-border);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-weight: 650;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background var(--transition-fast);
+}
+.vox-pill-action-btn:hover {
+  background: #dbeafe;
+}
+
+/* History Scroll Area */
+.vox-history-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: none;
+}
+.vox-history-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual Alert Item Card (Image 3) */
+.vox-history-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.vox-history-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vox-siren-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--red-soft-bg);
+  color: var(--red-emergency);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vox-history-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vox-history-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--navy-heading);
+}
+
+.vox-history-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: #475569;
+}
+.vox-history-row svg {
+  color: var(--slate-sub);
+}
+
+.vox-history-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-status-badge-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.vox-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.vox-tag-pill.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+.vox-tag-pill.blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.vox-tag-pill.purple {
+  background: #ede9fe;
+  color: #6b21a8;
+}
+
+.vox-tag-subnote {
+  font-size: 0.68rem;
+  color: var(--slate-sub);
+  margin-top: 1px;
+}
+
+.vox-history-chevron {
+  color: #1e3a8a;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Bottom Geolocation Banner (Image 3) */
+.vox-geo-bottom-banner {
+  background: linear-gradient(90deg, #eff6ff 0%, #e0edfe 100%);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.vox-geo-info-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-geo-pin-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: var(--blue-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-geo-banner-text {
+  color: #1e3a8a;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.vox-geo-map-art {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   8. Screen 4: Settings View (Matches Image 4)
+   ========================================================================== */
+.vox-segmented-tabs {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.vox-segment-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: #475569;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.vox-segment-item.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.vox-settings-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.vox-settings-body::-webkit-scrollbar {
+  display: none;
+}
+
+.vox-subview {
+  display: none;
+  flex-direction: column;
+  gap: 9px;
+}
+.vox-subview.active {
+  display: flex;
+}
+
+/* Settings Row Card (Image 4) */
+.vox-setting-row {
+  background: #ffffff;
+  border: 1px solid var(--card-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+}
+
+.vox-setting-block {
+  background: #ffffff;
+  border: 1px solid var(--card-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vox-setting-meta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vox-setting-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: var(--blue-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vox-setting-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.vox-setting-label {
+  font-size: 1.02rem;
+  font-weight: 750;
+  color: var(--navy-heading);
+}
+
+.vox-setting-desc {
+  font-size: 0.85rem;
+  color: var(--slate-sub);
+}
+
+/* iOS Style Switch */
+.vox-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+}
+.vox-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.vox-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  border-radius: var(--radius-full);
+  transition: 0.2s;
+}
+.vox-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.vox-toggle-switch input:checked + .vox-toggle-slider {
+  background-color: var(--blue-primary);
+}
+.vox-toggle-switch input:checked + .vox-toggle-slider:before {
+  transform: translateX(22px);
+}
+
+/* 3-Segment Theme Control (Image 4: Light | Dark | Auto) */
+.vox-pill-segmented-control {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+.vox-pill-btn-opt {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: #475569;
+  cursor: pointer;
+}
+.vox-pill-btn-opt.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+}
+
+/* Styled Select Dropdown */
+.vox-dropdown-control {
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--navy-heading);
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  max-width: 100%;
+}
+.vox-dropdown-control.compact {
+  padding: 4px 8px;
+  font-size: 0.78rem;
+}
+
+/* Text Inputs */
+.vox-input-field {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font-size: 0.86rem;
+  color: var(--navy-heading);
+  outline: none;
+}
+.vox-input-field:focus {
+  border-color: var(--blue-primary);
+}
+
+.vox-input-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
+.vox-feedback-hint {
+  font-size: 0.72rem;
+  color: var(--slate-sub);
+}
+
+/* Bottom Safety Banner (Image 4) */
+.vox-safety-bottom-banner {
+  background: #eff6ff;
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.vox-safety-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vox-info-circle-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.vox-safety-banner-texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.vox-safety-title {
+  color: #1e3a8a;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.vox-safety-sub {
+  color: #475569;
+  font-size: 0.74rem;
+}
+
+.vox-safety-heart-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   9. Top-Left Navigation & Action Controls (Requirements 2 & 10)
+   ========================================================================== */
+.vox-top-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* History Back / Forward Controls - Dark Mode & Clean Styling */
+body.dark-mode .nav-history-btn {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+body.dark-mode .nav-history-btn:hover:not(:disabled) {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+body.dark-mode .nav-history-btn:disabled,
+body.dark-mode .nav-history-btn.disabled {
+  background: rgba(15, 23, 42, 0.35);
+  border-color: rgba(255, 255, 255, 0.05);
+  color: #475569;
+}
+
+/* Top Navigation Buttons */
+.vox-top-nav-items {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  padding: 3px 5px;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-item-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--slate-sub);
+  position: relative;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-item-btn:hover {
+  color: var(--navy-dark);
+  background: var(--blue-light-bg);
+}
+
+.nav-item-btn.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.vox-nav-svg {
+  width: 15px;
+  height: 15px;
+}
+
+.vox-nav-text {
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: -0.1px;
+}
+
+/* Voice & Feature Toggle Button Groups (Requirements 6 & 15) */
+.vox-btn-group-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: var(--card-border);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.vox-toggle-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--slate-sub);
+  background: transparent;
+  transition: all var(--transition-fast);
+  min-width: 72px;
+  text-align: center;
+}
+
+.vox-toggle-btn:hover {
+  color: var(--navy-dark);
+}
+
+.vox-toggle-btn.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+/* ==========================================================================
+   10. Modals & Overlays (SOS Notice & Contact Form)
+   ========================================================================== */
+.sos-overlay, .contact-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+.sos-overlay.active, .contact-modal-overlay.active {
+  display: flex;
+}
+
+.sos-modal-card, .contact-modal-card {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 20px 22px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.sos-modal-header-row, .contact-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sos-countdown-display {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--red-emergency);
+  line-height: 1;
+}
+
+.sos-header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.sos-workflow-pill {
+  background: #fef3c7;
+  color: #b45309;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+}
+
+.sos-workflow-pill[data-state="SOS prepared"] {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.sos-workflow-pill[data-state="Sending"] {
+  background: #fef3c7;
+  color: #b45309;
+  animation: pulseWorkflowPill 1.2s infinite alternate;
+}
+
+.sos-workflow-pill[data-state="Provider accepted"] {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.sos-workflow-pill[data-state="Delivered"] {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.sos-workflow-pill[data-state="Failed"] {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.sos-workflow-pill[data-state="Cancelled"] {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+@keyframes pulseWorkflowPill {
+  from { opacity: 0.75; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1.02); }
+}
+
+body.dark-mode .sos-workflow-pill[data-state="SOS prepared"] {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+body.dark-mode .sos-workflow-pill[data-state="Sending"] {
+  background: #78350f;
+  color: #fde68a;
+}
+body.dark-mode .sos-workflow-pill[data-state="Provider accepted"] {
+  background: #134e4a;
+  color: #5eead4;
+}
+body.dark-mode .sos-workflow-pill[data-state="Delivered"] {
+  background: #14532d;
+  color: #86efac;
+}
+body.dark-mode .sos-workflow-pill[data-state="Failed"] {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+body.dark-mode .sos-workflow-pill[data-state="Cancelled"] {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+.sos-alert-id {
+  font-size: 0.72rem;
+  font-family: monospace;
+  color: var(--slate-sub);
+}
+
+.sos-modal-title, .contact-modal-title {
+  font-size: 1.25rem;
+  font-weight: 850;
+  color: var(--navy-heading);
+}
+
+.sos-modal-desc, .contact-modal-desc {
+  font-size: 0.82rem;
+  color: var(--slate-sub);
+}
+
+.sos-preview-panel {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.preview-panel-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--slate-sub);
+  margin-bottom: 6px;
+}
+
+.preview-message-body {
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  color: var(--navy-body);
+}
+
+.sos-modal-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.btn-sos-action {
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-share-web {
+  background: var(--blue-primary);
+  color: #ffffff;
+}
+.btn-share-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+}
+.btn-copy-msg {
+  background: #f1f5f9;
+  color: var(--navy-body);
+}
+.btn-cancel-alert {
+  background: var(--red-soft-bg);
+  color: var(--red-emergency);
+}
+
+.sos-safety-disclaimer {
+  font-size: 0.68rem;
+  color: var(--slate-sub);
+  text-align: center;
+}
+
+/* Contact Modal Form Elements */
+.contact-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.contact-form-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--navy-heading);
+}
+.required-star {
+  color: var(--red-emergency);
+}
+.contact-text-input {
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font-size: 0.86rem;
+}
+.field-hint {
+  font-size: 0.7rem;
+  color: var(--slate-sub);
+}
+
+.contact-form-group-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.contact-modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.vox-btn-cancel-modal {
+  background: #f1f5f9;
+  color: var(--navy-body);
+  border-radius: var(--radius-full);
+  height: 44px;
+  padding: 0 18px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.btn-close-modal {
+  font-size: 1.4rem;
+  color: var(--slate-sub);
+  cursor: pointer;
+}
+
+.contact-form-errors-box {
+  background: var(--red-soft-bg);
+  color: var(--red-emergency);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   11. Strict Zero Scrollbar Media Queries for Hackathon Viewports
+   - 1366x768 & 1280x720 (Desktop Compact)
+   - 1024x768 (Tablet Landscape)
+   - 768x1024 (Tablet Portrait)
+   - 390x844 (Mobile)
+   ========================================================================== */
+
+/* 1366x768 and 1280x720 Desktop Displays */
+@media (max-height: 768px) {
+  :root {
+    --header-height: 48px;
+    --bottom-nav-height: 56px;
+  }
+  .vox-app-title { font-size: 1.2rem; }
+  .vox-hero-card { padding: 12px 16px; }
+  .vox-hero-heading { font-size: 1.45rem; }
+  .vox-hero-right { width: 120px; height: 120px; }
+  .vox-concentric-wrap { width: 120px; height: 120px; }
+  .vox-ring.ring-outer { width: 116px; height: 116px; }
+  .vox-ring.ring-middle { width: 92px; height: 92px; }
+  .vox-center-mic-btn { width: 66px; height: 66px; }
+  .vox-grid-card { padding: 10px 13px; }
+  .vox-giant-sos-btn { height: 60px; }
+  .vox-sos-main-txt { font-size: 1.2rem; }
+  .vox-full-card { padding: 14px 16px; }
+  .vox-contact-card, .vox-history-card { padding: 9px 12px; }
+}
+
+/* 1024x768 Tablet Landscape */
+@media (max-width: 1024px) {
+  .app-shell { max-width: 100%; width: 100%; }
+}
+
+/* 768x1024 and Mobile Viewports */
+@media (max-width: 767px) {
+  .app-shell { max-width: 100%; }
+  .vox-hero-heading { font-size: 1.35rem; }
+  .vox-hero-right { width: 105px; height: 105px; }
+  .vox-concentric-wrap { width: 105px; height: 105px; }
+  .vox-ring.ring-outer { width: 100px; height: 100px; }
+  .vox-ring.ring-middle { width: 80px; height: 80px; }
+  .vox-center-mic-btn { width: 58px; height: 58px; }
+  .vox-center-mic-btn svg { width: 26px; height: 26px; }
+  .vox-dash-grid { gap: 8px; }
+  .vox-grid-card { padding: 9px 11px; }
+  .vox-card-title { font-size: 0.85rem; }
+  .vox-coords-text { font-size: 0.72rem; }
+  .vox-giant-sos-btn { height: 56px; gap: 10px; }
+  .vox-sos-main-txt { font-size: 1.15rem; }
+  .vox-sos-sub-txt { font-size: 0.74rem; }
+  .vox-bottom-nav { height: 54px; }
+  .vox-nav-text { font-size: 0.68rem; }
+  .vox-contact-card, .vox-history-card { padding: 8px 10px; }
+}
+
+/* ==========================================================================
+   12. Desktop Responsive Layout (Requirement 1: Professional Laptop Display)
+   ========================================================================== */
+@media (min-width: 900px) {
+  .vox-view-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+  }
+  
+  .vox-hero-card {
+    width: 100%;
+    flex: 0 0 auto;
+    min-height: 190px;
+    padding: 20px 28px;
+    box-sizing: border-box;
+  }
+  
+  .vox-dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  .vox-dash-grid .vox-grid-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px 24px;
+    gap: 12px;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+  }
+
+  .vox-sos-section {
+    width: 100%;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0 0 0;
+    padding: 2px 0;
+    box-sizing: border-box;
+  }
+
+  .vox-giant-sos-btn {
+    width: 100%;
+    max-width: 820px;
+    height: 72px;
+  }
+
+  .vox-full-card {
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   13. Dark Theme Mode Styles (Requirement 4)
+   ========================================================================== */
+body.dark-mode {
+  --bg-app: #0b1120;
+  --bg-gradient: radial-gradient(circle at 10% 0%, #0f172a 0%, transparent 40%), radial-gradient(circle at 90% 100%, #1e293b 0%, transparent 40%), #0b1120;
+  --card-bg: #131c31;
+  --card-border: #1e2e4a;
+  --card-border-subtle: #18253d;
+  
+  --navy-dark: #f8fafc;
+  --navy-heading: #f1f5f9;
+  --navy-body: #e2e8f0;
+  --slate-sub: #94a3b8;
+  --slate-muted: #64748b;
+  --blue-primary: #3b82f6;
+  --blue-hover: #60a5fa;
+  --blue-light-bg: #172554;
+  --blue-soft-pill: #1e3a8a;
+  --blue-border: #2563eb;
+  
+  --status-ready-bg: #064e3b;
+  --status-ready-text: #6ee7b7;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .vox-hero-card,
+body.dark-mode .vox-grid-card,
+body.dark-mode .vox-full-card,
+body.dark-mode .vox-contact-card,
+body.dark-mode .vox-history-card,
+body.dark-mode .sos-modal-card,
+body.dark-mode .contact-modal-card {
+  background: #131c31;
+  border-color: #1e2e4a;
+  color: #e2e8f0;
+}
+
+body.dark-mode .vox-circle-icon-btn {
+  background: #1e2e4a;
+  color: #93c5fd;
+}
+body.dark-mode .vox-circle-icon-btn:hover {
+  background: #253d66;
+}
+
+body.dark-mode .vox-app-title {
+  color: #f8fafc;
+}
+body.dark-mode .vox-app-subtitle {
+  color: #60a5fa;
+}
+
+body.dark-mode .vox-top-nav-items,
+body.dark-mode .vox-history-nav-group {
+  background: #131c31;
+  border-color: #1e2e4a;
+}
+body.dark-mode .vox-top-nav-items .nav-item-btn {
+  color: #94a3b8;
+}
+body.dark-mode .vox-top-nav-items .nav-item-btn:hover {
+  background: #1e2e4a;
+  color: #f1f5f9;
+}
+body.dark-mode .vox-top-nav-items .nav-item-btn.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+body.dark-mode .vox-hero-heading,
+body.dark-mode .vox-card-title,
+body.dark-mode .vox-heading-large,
+body.dark-mode .vox-contact-name,
+body.dark-mode .vox-setting-label {
+  color: #f1f5f9;
+}
+
+body.dark-mode .vox-input-field,
+body.dark-mode .vox-dropdown-control,
+body.dark-mode .contact-text-input {
+  background: #0f172a;
+  color: #f1f5f9;
+  border-color: #1e2e4a;
+}
+
+body.dark-mode .vox-mini-contact-row {
+  background: #1e293b;
+  border-color: #334155;
+}
+body.dark-mode .vox-mini-contact-row:hover {
+  background: #253349;
+}
+body.dark-mode .vox-btn-pill-maps {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+body.dark-mode .vox-btn-pill-maps:hover {
+  background: #253349;
+}
+
+body.dark-mode .vox-pill-segmented-control {
+  background: #1e2e4a;
+}
+body.dark-mode .vox-pill-btn-opt {
+  color: #94a3b8;
+}
+body.dark-mode .vox-pill-btn-opt.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+body.dark-mode .vox-safety-bottom-banner {
+  background: #172554;
+  border-color: #1e3a8a;
+}
+body.dark-mode .vox-safety-title {
+  color: #93c5fd;
+}
+body.dark-mode .vox-safety-sub {
+  color: #cbd5e1;
+}
+
+body.dark-mode .vox-geo-bottom-banner {
+  background: #172554;
+  border-color: #1e3a8a;
+  color: #93c5fd;
+}
+
+body.dark-mode .sos-preview-panel {
+  background: #090e1a;
+  border-color: #1e2e4a;
+}
+body.dark-mode .preview-message-body {
+  color: #93c5fd;
+}
+
+body.dark-mode .api-status-pill.online {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+body.dark-mode .api-status-pill.offline {
+  background: #7f1d1d;
+  color: #fca5a5;
+}
+body.dark-mode .api-status-pill.checking {
+  background: #1e2e4a;
+  color: #93c5fd;
+}
+
+
+
+/* ==========================================================================
+   Sidebar Responsive Fallback (Mobile / Tablet Portrait)
+   ========================================================================== */
+@media (max-width: 899px) {
+  .app-shell {
+    flex-direction: column;
+    padding: 4px 8px;
+    gap: 4px;
+  }
+  .vox-sidebar {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    padding: 6px 10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: var(--radius-md);
+  }
+  .vox-sidebar-top {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .vox-sidebar-brand .vox-app-subtitle {
+    display: none;
+  }
+  .vox-sidebar-nav-tools {
+    display: none;
+  }
+  .vox-vertical-nav-items {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 4px;
+  }
+  .vox-vertical-nav-items .nav-item-btn {
+    flex-direction: column;
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    gap: 2px;
+    width: auto;
+    border-radius: var(--radius-sm);
+  }
+  .vox-vertical-nav-items .nav-item-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .vox-sidebar-footer {
+    display: none;
+  }
+  .vox-header {
+    height: 36px;
+    min-height: 36px;
+  }
+}
+
+/* ==========================================================================
+   Icon Sizing, Centering & Distortion Prevention (Requirements 3 & 7)
+   ========================================================================== */
+svg {
+  flex-shrink: 0;
+}
+
+.vox-circle-icon-btn,
+.vox-round-action-btn,
+.vox-siren-circle,
+.vox-contact-avatar,
+.vox-top-loc-icon,
+.vox-top-contacts-icon,
+.vox-center-mic-btn,
+.vox-shield-logo,
+.vox-pill-dot,
+.api-status-dot,
+.vox-safety-icon-circle,
+.vox-safety-heart,
+.vox-geo-pin-icon {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.vox-center-mic-btn svg {
+  flex-shrink: 0;
+  margin: auto;
+}
+
+/* ==========================================================================
+   Primary ICE Contact Styling (Requirement 11)
+   ========================================================================== */
+.vox-contact-card.is-primary {
+  border: 1.5px solid var(--blue-primary);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0.98) 100%);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.12);
+  position: relative;
+}
+
+.vox-ice-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  letter-spacing: 0.4px;
+}
+
+.btn-set-primary {
+  background: var(--blue-light-bg) !important;
+  color: var(--blue-primary) !important;
+  border: 1px solid var(--blue-border) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 4px 10px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-set-primary:hover {
+  background: var(--blue-primary) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   RTL Rules for Urdu (Requirement 1)
+   ========================================================================== */
+html[dir="rtl"], body[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+html[dir="rtl"] .vox-sidebar-brand,
+html[dir="rtl"] .vox-vertical-nav-items .nav-item-btn,
+html[dir="rtl"] .vox-contact-left,
+html[dir="rtl"] .vox-history-left,
+html[dir="rtl"] .vox-setting-item-left {
+  text-align: right;
+}
+
+html[dir="rtl"] .vox-vertical-nav-items .nav-item-btn {
+  text-align: right;
+}
+
+html[dir="rtl"] .vox-history-right,
+html[dir="rtl"] .vox-contact-actions {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* ==========================================================================
+   Dark Mode Overrides for Sidebar & Primary Contacts (Requirement 5)
+   ========================================================================== */
+body.dark-mode .vox-sidebar {
+  background: #131c31;
+  border-color: #1e2e4a;
+}
+body.dark-mode .vox-sidebar-top {
+  border-bottom-color: #18253d;
+}
+body.dark-mode .vox-sidebar-footer {
+  border-top-color: #18253d;
+}
+body.dark-mode .vox-vertical-nav-items .nav-item-btn {
+  color: #94a3b8;
+}
+body.dark-mode .vox-vertical-nav-items .nav-item-btn:hover {
+  background: #1e2e4a;
+  color: #f1f5f9;
+}
+body.dark-mode .vox-vertical-nav-items .nav-item-btn.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+body.dark-mode .vox-contact-card.is-primary {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(19, 28, 49, 1) 100%);
+}
+body.dark-mode .vox-ice-tag {
+  background: #78350f;
+  color: #fef3c7;
+  border-color: #92400e;
+}
+
+
+/* ==========================================================================
+   FUTURISTIC SLEEK UI/UX (Exact Match to User Reference Screenshot)
+   ========================================================================== */
+
+/* Left Sidebar - Midnight Navy Glassmorphism */
+.vox-sidebar {
+  background: linear-gradient(180deg, #0b1329 0%, #080d1a 60%, #0d1e40 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.vox-sidebar-brand .vox-app-title {
+  color: #ffffff !important;
+  letter-spacing: 0.8px;
+}
+
+.vox-sidebar-brand .vox-app-subtitle {
+  color: #94a3b8 !important;
+}
+
+.vox-vertical-nav-items .nav-item-btn {
+  color: #94a3b8 !important;
+  border-radius: var(--radius-full) !important;
+  padding: 11px 16px !important;
+}
+
+.vox-vertical-nav-items .nav-item-btn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.vox-vertical-nav-items .nav-item-btn.active {
+  background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%) !important;
+  color: #ffffff !important;
+  border-color: rgba(96, 165, 250, 0.4) !important;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.vox-sidebar-bottom-emblem {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  filter: drop-shadow(0 0 12px rgba(37, 99, 235, 0.5));
+}
+
+/* Header Status Capsule & User Avatar */
+.vox-header-status-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(13, 21, 39, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.vox-header-status-capsule .vox-system-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #f1f5f9;
+  font-size: 0.8rem;
+  font-weight: 650;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.vox-header-status-capsule .vox-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.vox-header-status-capsule .vox-status-sep {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.85rem;
+}
+
+.vox-header-status-capsule .api-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #f1f5f9;
+  font-size: 0.8rem;
+  font-weight: 650;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.vox-user-avatar-wrap {
+  position: relative;
+}
+
+.vox-user-avatar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.vox-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  box-shadow: 0 0 14px rgba(59, 130, 246, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.vox-avatar-chevron {
+  color: #94a3b8;
+}
+
+.vox-user-dropdown {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 190px;
+  background: #131c31;
+  border: 1px solid #1e2e4a;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 50;
+}
+
+.vox-user-dropdown-header {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vox-user-dropdown-header strong {
+  font-size: 0.85rem;
+  color: #f1f5f9;
+}
+
+.vox-user-dropdown-header small {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.vox-dropdown-divider {
+  height: 1px;
+  background: #1e2e4a;
+  margin: 4px 0;
+}
+
+.vox-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+}
+
+.vox-dropdown-item:hover {
+  background: #1e2e4a;
+  color: #ffffff;
+}
+
+/* Card 1: Voice Assistant Hero Card */
+.vox-hero-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 28px;
+  box-shadow: 0 10px 30px rgba(0, 20, 60, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.vox-hero-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48%;
+  height: 100%;
+  background: radial-gradient(ellipse at 100% 50%, rgba(219, 234, 254, 0.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.vox-hero-left {
+  display: flex;
+  flex-direction: column;
+  max-width: 46%;
+  z-index: 2;
+}
+
+.vox-sound-wave-icon.purple span {
+  width: 3px;
+  background: #8b5cf6 !important;
+  border-radius: 2px;
+}
+
+.vox-hero-status-tag {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.vox-status-active-txt {
+  color: #16a34a;
+}
+
+.vox-hero-heading {
+  font-size: 2.1rem;
+  font-weight: 850;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  margin: 4px 0 2px 0;
+}
+
+.vox-hero-sub {
+  font-size: 0.94rem;
+  color: #475569;
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+
+.vox-mic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  cursor: pointer;
+  color: #1d4ed8;
+  font-weight: 700;
+  font-size: 0.92rem;
+  width: fit-content;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+  transition: all var(--transition-fast);
+}
+
+.vox-mic-pill:hover {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  transform: translateY(-1px);
+}
+
+.vox-pill-play-triangle {
+  color: #2563eb;
+  font-size: 0.75rem;
+}
+
+.vox-hero-center-mic {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+}
+
+.vox-soundbars-flank {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 28px;
+}
+
+.vox-soundbars-flank span {
+  width: 3px;
+  background: #93c5fd;
+  border-radius: 2px;
+}
+
+.vox-soundbars-flank span:nth-child(1) { height: 10px; }
+.vox-soundbars-flank span:nth-child(2) { height: 18px; }
+.vox-soundbars-flank span:nth-child(3) { height: 26px; }
+.vox-soundbars-flank span:nth-child(4) { height: 16px; }
+.vox-soundbars-flank span:nth-child(5) { height: 8px; }
+
+.vox-concentric-wrap {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-ring.ring-outer {
+  width: 126px;
+  height: 126px;
+  background: rgba(219, 234, 254, 0.45);
+}
+
+.vox-ring.ring-middle {
+  width: 98px;
+  height: 98px;
+  background: rgba(191, 219, 254, 0.55);
+}
+
+.vox-center-mic-btn {
+  position: relative;
+  z-index: 5;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.55), 0 8px 20px rgba(29, 78, 216, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.vox-center-mic-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 35px rgba(37, 99, 235, 0.7);
+}
+
+.vox-hero-right-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.vox-hero-right-badge:hover {
+  transform: scale(1.05);
+}
+
+/* Card 2: Live Location Card */
+.vox-location-preview-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 20, 60, 0.08);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.location-state-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.86rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.vox-green-check {
+  font-size: 0.72rem;
+}
+
+.vox-map-visual-wrap {
+  position: relative;
+  width: 100%;
+  height: 140px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-map-grid-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vox-map-btn-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-fast);
+}
+
+.vox-map-btn-overlay:hover {
+  background: #ffffff;
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.vox-live-marker-center {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vox-marker-tooltip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-full);
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  margin-bottom: 6px;
+  animation: floatTooltip 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes floatTooltip {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}
+
+.vox-marker-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.8);
+  position: relative;
+  z-index: 2;
+}
+
+.vox-marker-pulse-ring {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.25);
+  animation: mapPulse 2s ease-out infinite;
+}
+
+.vox-marker-pulse-ring-outer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.12);
+  animation: mapPulse 2s ease-out infinite 0.5s;
+}
+
+@keyframes mapPulse {
+  0% { transform: translate(-50%, 50%) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, 50%) scale(1.6); opacity: 0; }
+}
+
+.vox-loc-telemetry-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+}
+
+.vox-telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-tele-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.vox-tele-label {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.vox-tele-val {
+  font-size: 0.92rem;
+  color: #0f172a;
+  font-weight: 750;
+}
+
+.vox-tele-divider {
+  color: #cbd5e1;
+}
+
+.vox-recalibrate-icon-btn {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.vox-recalibrate-icon-btn:hover {
+  background: #dbeafe;
+  transform: rotate(45deg);
+}
+
+/* Card 3: Emergency Contacts Card */
+.vox-contacts-preview-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 20, 60, 0.08);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.vox-manage-contacts-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vox-manage-contacts-pill-btn:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+.vox-mini-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.vox-mini-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 7px 12px;
+  transition: all var(--transition-fast);
+}
+
+.vox-mini-contact-row:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.vox-mini-contact-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.vox-mini-avatar-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.vox-mini-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vox-mini-name {
+  font-weight: 750;
+  color: #0f172a;
+  font-size: 0.98rem;
+}
+
+.vox-mini-ice-pill {
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.vox-mini-phone {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.vox-mini-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vox-action-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vox-action-icon-btn:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  transform: scale(1.08);
+}
+
+.vox-action-icon-btn:hover svg {
+  stroke: #ffffff;
+}
+
+/* Card 4: Emergency SOS Button (Full Width Red Liquid Gradient) */
+.vox-sos-section {
+  width: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.vox-giant-sos-btn {
+  width: 100%;
+  height: 68px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #dc2626 0%, #ef4444 35%, #e11d48 70%, #be123c 100%) !important;
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.45), 0 0 20px rgba(239, 68, 68, 0.35) !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.vox-giant-sos-btn:hover {
+  transform: translateY(-1px) scale(1.008);
+  box-shadow: 0 10px 40px rgba(220, 38, 38, 0.6) !important;
+}
+
+.vox-sos-warning-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vox-sos-white-sep {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 0 8px;
+}
+
+.vox-sos-meta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.vox-sos-main-txt {
+  color: #ffffff !important;
+  font-size: 1.48rem;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  line-height: 1.1;
+}
+
+.vox-sos-sub-txt {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.vox-sos-right-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.vox-giant-sos-btn:hover .vox-sos-right-arrow {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   In-App Notifications Toast Banners (Requirement 8)
+   ========================================================================== */
+.vox-notifications-container {
+  position: fixed;
+  top: 16px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999999;
+  pointer-events: none;
+  max-width: 380px;
+  width: calc(100% - 36px);
+}
+
+.vox-toast-banner {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vox-toast-banner.fade-out {
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.vox-toast-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.vox-toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.vox-toast-title {
+  font-size: 0.85rem;
+  font-weight: 750;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.vox-toast-msg {
+  font-size: 0.78rem;
+  color: #475569;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.vox-toast-close {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.vox-toast-close:hover {
+  color: #1e293b;
+}
+
+.vox-toast-banner.emergency {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+.vox-toast-banner.emergency .vox-toast-title {
+  color: #be123c;
+}
+.vox-toast-banner.emergency .vox-toast-msg {
+  color: #9f1239;
+}
+
+.vox-toast-banner.warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.vox-toast-banner.warning .vox-toast-title {
+  color: #b45309;
+}
+.vox-toast-banner.warning .vox-toast-msg {
+  color: #92400e;
+}
+
+.vox-toast-banner.success {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+.vox-toast-banner.success .vox-toast-title {
+  color: #15803d;
+}
+.vox-toast-banner.success .vox-toast-msg {
+  color: #166534;
+}
+
+.vox-toast-banner.info {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+.vox-toast-banner.info .vox-toast-title {
+  color: #1d4ed8;
+}
+.vox-toast-banner.info .vox-toast-msg {
+  color: #1e40af;
+}
+
+/* Dark mode notification overrides */
+body.dark-mode .vox-toast-banner {
+  background: #1e293b;
+  border-color: #334155;
+}
+body.dark-mode .vox-toast-banner .vox-toast-title {
+  color: #f8fafc;
+}
+body.dark-mode .vox-toast-banner .vox-toast-msg {
+  color: #cbd5e1;
+}
+body.dark-mode .vox-toast-banner.emergency {
+  background: #3a151e;
+  border-color: #881337;
+}
+body.dark-mode .vox-toast-banner.emergency .vox-toast-title {
+  color: #fda4af;
+}
+body.dark-mode .vox-toast-banner.emergency .vox-toast-msg {
+  color: #fecdd3;
+}
+body.dark-mode .vox-toast-banner.warning {
+  background: #3b2a14;
+  border-color: #78350f;
+}
+body.dark-mode .vox-toast-banner.warning .vox-toast-title {
+  color: #fde68a;
+}
+body.dark-mode .vox-toast-banner.warning .vox-toast-msg {
+  color: #fef3c7;
+}
+body.dark-mode .vox-toast-banner.success {
+  background: #132e1f;
+  border-color: #14532d;
+}
+body.dark-mode .vox-toast-banner.success .vox-toast-title {
+  color: #86efac;
+}
+body.dark-mode .vox-toast-banner.success .vox-toast-msg {
+  color: #bbf7d0;
+}
+body.dark-mode .vox-toast-banner.info {
+  background: #152744;
+  border-color: #1e3a8a;
+}
+body.dark-mode .vox-toast-banner.info .vox-toast-title {
+  color: #93c5fd;
+}
+body.dark-mode .vox-toast-banner.info .vox-toast-msg {
+  color: #bfdbfe;
+}
+
+/* Top Header Theme Toggle Button */
+.vox-theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1.5px solid var(--card-border);
+  color: #3b82f6;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all var(--transition-fast);
+  margin-right: 8px;
+}
+.vox-theme-toggle-btn:hover {
+  background: #f1f5f9;
+  color: #1d4ed8;
+  transform: translateY(-1px);
+}
+.vox-theme-toggle-btn .theme-icon-sun {
+  display: none;
+}
+.vox-theme-toggle-btn .theme-icon-moon {
+  display: block;
+}
+body.dark-mode .vox-theme-toggle-btn {
+  background: #1e2e4a;
+  border-color: #2e446d;
+  color: #fbbf24;
+}
+body.dark-mode .vox-theme-toggle-btn:hover {
+  background: #253d66;
+  color: #f59e0b;
+}
+body.dark-mode .vox-theme-toggle-btn .theme-icon-sun {
+  display: block;
+}
+body.dark-mode .vox-theme-toggle-btn .theme-icon-moon {
+  display: none;
+}
+
+
+/* ==========================================================================
+   TARGETED FIXES: Gaps, Language Dropdown & Readability
+   ========================================================================== */
+
+/* Fix 1: Reduce unnecessary gaps between Emergency Contacts and Existing Contacts */
+.vox-contacts-preview-card .vox-card-body {
+  justify-content: flex-start !important;
+  gap: 4px !important;
+}
+
+.vox-contacts-preview-card .vox-card-head {
+  margin-bottom: 2px !important;
+}
+
+.vox-contacts-preview-card .vox-sub-count-tag {
+  margin-bottom: 4px !important;
+}
+
+.vox-mini-contacts {
+  gap: 5px !important;
+  margin-top: 2px !important;
+}
+
+#tab-contacts .vox-card-title-header {
+  margin-bottom: 4px !important;
+}
+
+#tab-contacts .vox-full-card {
+  gap: 8px !important;
+}
+
+#tab-contacts .vox-contacts-scroll-area {
+  gap: 8px !important;
+}
+
+/* Fix 3: Language Dropdown in Settings -> General - Smooth downward scrolling */
+.vox-settings-body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #cbd5e1 transparent !important;
+  overscroll-behavior: contain !important;
+}
+
+.vox-settings-body::-webkit-scrollbar {
+  display: block !important;
+  width: 6px !important;
+}
+
+.vox-settings-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 9999px !important;
+}
+
+.vox-select-capsule {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: 170px !important;
+}
+
+#select-language-pref.vox-dropdown-control {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  padding: 8px 36px 8px 14px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: var(--navy-heading) !important;
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 12px center !important;
+  cursor: pointer !important;
+  outline: none !important;
+  width: 100% !important;
+  max-width: 220px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+#select-language-pref.vox-dropdown-control:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+
+#select-language-pref option {
+  padding: 8px 12px !important;
+  font-size: 0.95rem !important;
+  color: #0f172a !important;
+  background: #ffffff !important;
+}
+
+body.dark-mode #select-language-pref.vox-dropdown-control {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-mode #select-language-pref option {
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+
+/* ==========================================================================
+   DOWNWARD-OPENING LANGUAGE DROPDOWN & SCROLLBAR
+   ========================================================================== */
+.vox-select-capsule {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: 170px !important;
+  z-index: 100 !important;
+}
+
+.vox-dropdown-trigger-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  padding: 8px 14px !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: var(--radius-full) !important;
+  background: #ffffff !important;
+  color: var(--navy-heading) !important;
+  font-size: 0.95rem !important;
+  font-weight: 650 !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  min-width: 170px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.vox-dropdown-trigger-btn:hover {
+  border-color: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15) !important;
+}
+
+.vox-dropdown-chevron-down {
+  color: #2563eb !important;
+  transition: transform 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.vox-dropdown-trigger-btn.open .vox-dropdown-chevron-down {
+  transform: rotate(180deg) !important;
+}
+
+/* THE DROPDOWN MENU: STRICTLY OPENS DOWNWARD (top: 100% + 6px; bottom: auto;) */
+.vox-custom-dropdown-menu {
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
+  bottom: auto !important; /* PREVENTS ANY UPWARD FLIPPING */
+  right: 0 !important;
+  left: auto !important;
+  width: 220px !important;
+  max-height: 220px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background: #ffffff !important;
+  border: 1.5px solid #bfdbfe !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 25px rgba(0, 20, 60, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  padding: 6px !important;
+  z-index: 99999 !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #93c5fd transparent !important;
+}
+
+.vox-custom-dropdown-menu::-webkit-scrollbar {
+  width: 6px !important;
+  display: block !important;
+}
+
+.vox-custom-dropdown-menu::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.vox-custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #93c5fd !important;
+  border-radius: 9999px !important;
+}
+
+.vox-custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6 !important;
+}
+
+.vox-custom-opt {
+  padding: 8px 12px !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  color: #0f172a !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: background var(--transition-fast), color var(--transition-fast) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.vox-custom-opt:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+}
+
+.vox-custom-opt.active {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  font-weight: 750 !important;
+}
+
+.vox-custom-opt.active::after {
+  content: '✓';
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* Dark mode styling for custom dropdown */
+body.dark-mode .vox-dropdown-trigger-btn {
+  background: #0f172a !important;
+  border-color: #1e2e4a !important;
+  color: #f1f5f9 !important;
+}
+
+body.dark-mode .vox-custom-dropdown-menu {
+  background: #0f172a !important;
+  border-color: #1e2e4a !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  scrollbar-color: #334155 transparent !important;
+}
+
+body.dark-mode .vox-custom-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #334155 !important;
+}
+
+body.dark-mode .vox-custom-opt {
+  color: #cbd5e1 !important;
+}
+
+body.dark-mode .vox-custom-opt:hover {
+  background: #1e293b !important;
+  color: #60a5fa !important;
+}
+
+body.dark-mode .vox-custom-opt.active {
+  background: #1e3a8a !important;
+  color: #93c5fd !important;
+}
+
+/* Native select preserved off-screen for screen readers and automated test suites */
+.sr-only-select {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
+/* Top Right Theme Toggle Icon Removed as Requested */
+.vox-theme-toggle-btn {
+  display: none !important;
+}
